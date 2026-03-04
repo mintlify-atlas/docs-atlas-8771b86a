@@ -1,0 +1,70 @@
+{
+  "projectType": "saas",
+  "projectName": "Readme.so",
+  "projectDescription": "An online drag-and-drop editor to easily build professional README files for GitHub projects",
+  "theme": "almond",
+  "primaryColor": "#44ddab",
+  "lightColor": "#25966f",
+  "darkColor": "#a5fbe1",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "User Guide",
+            "pages": [
+              "guide/editor-interface",
+              "guide/sections-library",
+              "guide/customization",
+              "guide/export-download",
+              "guide/internationalization"
+            ]
+          },
+          {
+            "group": "For Developers",
+            "pages": [
+              "developers/local-setup",
+              "developers/architecture",
+              "developers/contributing",
+              "developers/testing"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "resources/faq",
+              "resources/changelog"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Drag-and-drop section management",
+    "Live markdown preview with syntax highlighting",
+    "Pre-built README section templates",
+    "Multi-language support (English, Chinese, Portuguese, Turkish)",
+    "Dark mode support",
+    "Local storage auto-save",
+    "Custom section creation",
+    "Export to markdown file"
+  ],
+  "publicApiSurface": [
+    "SectionsColumn - Main sections management component",
+    "EditPreviewContainer - Editor and preview container",
+    "CustomSection - Custom section creator",
+    "DownloadModal - Export functionality",
+    "useLocalStorage - Auto-save hook",
+    "useDarkMode - Theme switching hook",
+    "Section templates (title-and-description, installation, features, etc.)"
+  ]
+}
