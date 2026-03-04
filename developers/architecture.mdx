@@ -1,0 +1,377 @@
+---
+title: 'Architecture Overview'
+description: 'Understanding the structure, components, and data flow of Readme.so'
+---
+
+## Tech Stack
+
+Readme.so is built with modern web technologies:
+
+- **Next.js 16** - React framework with SSG support
+- **React 19** - UI library with hooks
+- **Tailwind CSS 3** - Utility-first CSS framework
+- **dnd-kit** - Modern drag and drop toolkit
+- **Monaco Editor** - VS Code's editor for markdown editing
+- **react-markdown** - Markdown rendering
+- **next-i18next** - Internationalization
+
+## Project Structure
+
+The codebase follows the standard Next.js Pages Router structure:
+
+```
+readme-so-community/
+├── components/          # React components
+│   ├── SectionsColumn.js
+│   ├── EditPreviewContainer.js
+│   ├── EditorColumn.js
+│   ├── PreviewColumn.js
+│   ├── CustomSection.js
+│   ├── Nav.js
+│   └── __tests__/      # Component tests
+├── pages/              # Next.js pages
+│   ├── _app.js         # App wrapper
+│   ├── _document.js    # HTML document
+│   ├── index.js        # Landing page
+│   └── editor.js       # Main editor page
+├── hooks/              # Custom React hooks
+│   ├── useLocalStorage.js
+│   ├── useDarkMode.js
+│   └── useDeviceDetect.js
+├── data/               # Section templates & i18n
+│   ├── section-templates-en_EN.js
+│   ├── section-templates-pt_BR.js
+│   ├── section-templates-tr_TR.js
+│   └── section-templates-cn_CN.js
+├── utils/              # Utility functions
+├── styles/             # Global CSS
+└── public/             # Static assets
+```
+
+## Core Components
+
+### SectionsColumn
+
+The sidebar that manages available and selected readme sections.
+
+**Location:** `components/SectionsColumn.js:29`
+
+**Key Features:**
+- Displays available sections to add
+- Shows currently selected sections
+- Drag and drop reordering via dnd-kit
+- Search/filter functionality
+- Section reset and delete operations
+
+**State Management:**
+```javascript
+const [selectedSectionSlugs, setSelectedSectionSlugs] = useState([])
+const [sectionSlugs, setSectionSlugs] = useState([])
+const [focusedSectionSlug, setFocusedSectionSlug] = useState(null)
+```
+
+**Props:**
+- `selectedSectionSlugs` - Array of currently selected section IDs
+- `sectionSlugs` - Array of available section IDs
+- `templates` - Section template data
+- `darkMode` - Dark mode state
+
+### EditPreviewContainer
+
+The main container for the editor and preview columns.
+
+**Location:** `components/EditPreviewContainer.js:12`
+
+**Responsibilities:**
+- Layout management for editor and preview
+- Tab switching between Preview and Raw modes
+- Responsive design for mobile/desktop
+- Combines markdown from all sections
+
+**Key Logic:**
+```javascript
+const startMarkdown = [...new Set(selectedSectionSlugs)].reduce((acc, section) => {
+  const template = getTemplate(section)
+  if (template) {
+    return `${acc}${template.markdown}`
+  }
+  return acc
+}, ``)
+```
+
+### EditorColumn
+
+Monaco-based markdown editor for editing section content.
+
+**Location:** `components/EditorColumn.js`
+
+**Features:**
+- Syntax highlighting for markdown
+- Real-time editing
+- Section-focused editing
+- VS Code keybindings
+
+### PreviewColumn
+
+Renders the markdown preview using react-markdown.
+
+**Location:** `components/PreviewColumn.js`
+
+**Modes:**
+- **Preview** - Rendered HTML view
+- **Raw** - Plain markdown text
+
+### CustomSection
+
+Modal dialog for creating custom readme sections.
+
+**Location:** `components/CustomSection.js:13`
+
+**Functionality:**
+- Input field for section title
+- Creates slug from title (e.g., "My Section" → "custom-my-section")
+- Adds new section to templates
+- Automatically selects and focuses new section
+
+```javascript
+const section = {
+  slug: 'custom-' + title.toLowerCase().replace(/\s/g, '-'),
+  name: title,
+  markdown: `## ${title}`,
+}
+```
+
+## Custom Hooks
+
+### useLocalStorage
+
+Manages localStorage backup of readme templates.
+
+**Location:** `hooks/useLocalStorage.js:3`
+
+**API:**
+```javascript
+const { backup, saveBackup, deleteBackup } = useLocalStorage()
+```
+
+**Features:**
+- Debounced save (1 second delay)
+- Loads backup on mount
+- Stores entire templates array
+
+**Usage:**
+```javascript
+// Save current templates
+saveBackup(templates)
+
+// Delete all backups
+deleteBackup()
+
+// Access saved backup
+useEffect(() => {
+  if (backup) {
+    setTemplates(backup)
+  }
+}, [backup])
+```
+
+### useDarkMode
+
+Manages dark mode state with localStorage persistence.
+
+**Location:** `hooks/useDarkMode.js:5`
+
+**API:**
+```javascript
+const [darkMode, setDarkMode] = useDarkMode()
+```
+
+**Implementation:**
+- Reads initial value from localStorage
+- Toggles `dark` class on `<html>` element
+- Persists preference to localStorage
+- Returns boolean state and setter
+
+### useDeviceDetect
+
+Detects mobile vs desktop devices for responsive behavior.
+
+**Location:** `hooks/useDeviceDetect.js`
+
+**API:**
+```javascript
+const { isMobile } = useDeviceDetect()
+```
+
+## Data Flow
+
+### Section Templates
+
+Templates are loaded based on locale:
+
+```javascript
+// pages/editor.js:115
+export const getStaticProps = async ({ locale }) => {
+  const sectionTemplates = allSectionTemplates[locale]
+    ? allSectionTemplates[locale]
+    : allSectionTemplates['en']
+  return { props: { sectionTemplates } }
+}
+```
+
+Each template has:
+```javascript
+{
+  slug: 'installation',      // Unique identifier
+  name: 'Installation',       // Display name
+  markdown: '## Installation\n...'  // Template content
+}
+```
+
+### State Management Flow
+
+<Steps>
+  <Step title="Initial Load">
+    1. Page loads with locale-specific templates
+    2. `useLocalStorage` checks for backup
+    3. Backup templates replace defaults if found
+    4. Previous session's sections restored from localStorage
+  </Step>
+
+  <Step title="User Adds Section">
+    1. User clicks section in `SectionsColumn`
+    2. Section slug added to `selectedSectionSlugs`
+    3. Section removed from available `sectionSlugs`
+    4. `focusedSectionSlug` updated to new section
+    5. State saved to localStorage
+  </Step>
+
+  <Step title="User Edits Section">
+    1. User edits markdown in `EditorColumn`
+    2. Template updated in `templates` array
+    3. `saveBackup()` debounces and saves to localStorage
+    4. Preview automatically updates via React state
+  </Step>
+
+  <Step title="User Reorders Sections">
+    1. User drags section in `SectionsColumn`
+    2. dnd-kit fires `handleDragEnd` event
+    3. `selectedSectionSlugs` reordered with `arrayMove()`
+    4. Preview updates with new section order
+  </Step>
+</Steps>
+
+### localStorage Keys
+
+The application uses these localStorage keys:
+
+| Key | Purpose | Type |
+|-----|---------|------|
+| `readme-backup` | Stores all templates with edits | JSON array |
+| `current-slug-list` | Comma-separated selected sections | String |
+| `current-focused-slug` | Currently focused section | String |
+| `color-theme` | Dark/light mode preference | String |
+
+## Internationalization
+
+Multi-language support via next-i18next:
+
+**Supported Locales:**
+- English (`en_EN`)
+- Portuguese Brazil (`pt_BR`)
+- Turkish (`tr_TR`)
+- Chinese (`cn_CN`)
+
+**Structure:**
+```javascript
+// data/section-templates-en_EN.js
+export default [
+  { slug: 'title', name: 'Title and Description', markdown: '...' },
+  { slug: 'installation', name: 'Installation', markdown: '...' },
+  // ...
+]
+```
+
+Translation strings in `public/locales/{locale}/editor.json`
+
+## Styling Approach
+
+### Tailwind CSS
+
+Utility-first styling with dark mode support:
+
+```jsx
+<div className="bg-white dark:bg-gray-800">
+  <h3 className="text-emerald-500 text-sm font-medium">
+    Sections
+  </h3>
+</div>
+```
+
+### Dark Mode
+
+Tailwind's `dark:` variant activated by class on `<html>`:
+
+```javascript
+// hooks/useDarkMode.js:14
+if (enabled) {
+  element.classList.add('dark')
+} else {
+  element.classList.remove('dark')
+}
+```
+
+## Next.js Configuration
+
+Minimal configuration focusing on i18n:
+
+**Location:** `next.config.js`
+
+```javascript
+const { i18n } = require('./next-i18next.config')
+
+module.exports = { i18n }
+```
+
+**Rendering Strategy:**
+- Static Site Generation (SSG) for all pages
+- `getStaticProps` loads locale-specific templates
+- No server-side runtime needed
+
+## Performance Considerations
+
+<Tip>
+  The app is fully static with no backend, so all state lives in the browser. This makes it fast and easy to deploy.
+</Tip>
+
+**Optimizations:**
+- Static generation for instant page loads
+- Debounced localStorage saves
+- Component-level state management
+- Lazy loading of Monaco Editor
+- PWA support for offline usage
+
+## Security Notes
+
+<Warning>
+  All data is stored client-side. Users should download their READMEs regularly as clearing browser data will lose all work.
+</Warning>
+
+- No authentication required
+- No server-side data storage
+- No API calls (except for external integrations)
+- XSS protection via React's escaping
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Local Setup" icon="laptop-code" href="/developers/local-setup">
+    Set up your development environment
+  </Card>
+  <Card title="Contributing" icon="code-pull-request" href="/developers/contributing">
+    Learn the contribution workflow
+  </Card>
+  <Card title="Testing" icon="flask" href="/developers/testing">
+    Write tests for components
+  </Card>
+</CardGroup>

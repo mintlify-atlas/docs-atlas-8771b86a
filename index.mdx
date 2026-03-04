@@ -1,97 +1,269 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Welcome to Readme.so Documentation"
+mode: custom
 ---
 
-## Setting up
+<div className="relative overflow-hidden dark:bg-[#0f1117] bg-white">
+  {/* Hero Section */}
+  <div className="relative py-20 px-6 sm:px-8 lg:px-12" style={{ background: 'linear-gradient(135deg, #44ddab 0%, #25966f 100%)' }}>
+    <div className="max-w-6xl mx-auto">
+      <div className="grid lg:grid-cols-12 gap-8 items-center">
+        <div className="lg:col-span-7">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+            Build Professional READMEs in Minutes
+          </h1>
+          <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl">
+            An intuitive drag-and-drop editor that helps developers create beautiful, comprehensive README files for their GitHub projects without starting from scratch.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a 
+              href="/quickstart" 
+              className="inline-flex items-center px-6 py-3 text-base font-semibold text-[#25966f] bg-white rounded-lg hover:bg-gray-100 transition-colors no-underline"
+            >
+              Get Started
+            </a>
+            <a 
+              href="/guide/editor-interface" 
+              className="inline-flex items-center px-6 py-3 text-base font-semibold text-white border-2 border-white/30 bg-white/10 rounded-lg hover:bg-white/20 transition-colors no-underline"
+            >
+              Explore Features
+            </a>
+          </div>
+        </div>
+        <div className="lg:col-span-5 hidden lg:block">
+          <div className="relative">
+            <img 
+              src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?q=80&w=800&auto=format&fit=crop"
+              alt="README editor interface preview"
+              className="rounded-2xl shadow-2xl"
+              noZoom
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-Get your documentation site up and running in minutes.
+  {/* Quick Start Section */}
+  <div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+    <h2 className="text-3xl font-bold dark:text-white text-gray-900 mb-3">Quick start</h2>
+    <p className="text-base dark:text-gray-400 text-gray-600 mb-8">
+      Get up and running with Readme.so in just a few steps
+    </p>
+    
+    <Steps>
+      <Step title="Visit the Editor">
+        Navigate to [readme-so-community.vercel.app](https://readme-so-community.vercel.app) to access the online editor. No sign-up required — start building immediately.
+      </Step>
+      
+      <Step title="Select Sections">
+        Browse the sections library on the left sidebar and click any section to add it to your README. Choose from templates like Installation, Features, API Reference, Contributing, and more.
+        
+        <Note>
+          Sections are automatically saved to your browser's local storage, so your work is preserved between sessions.
+        </Note>
+      </Step>
+      
+      <Step title="Customize Content">
+        Click on any added section in the middle column to edit its content. Use the Monaco editor with markdown syntax highlighting to write and format your documentation.
+      </Step>
+      
+      <Step title="Export Your README">
+        Preview your README in real-time on the right side. When you're satisfied, click the download button in the navigation bar to save your README.md file.
+        
+        ```bash
+        # Your downloaded file is ready to use
+        mv ~/Downloads/README.md /path/to/your/project/
+        git add README.md
+        git commit -m "Add comprehensive README"
+        ```
+      </Step>
+    </Steps>
+  </div>
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+  {/* Key Features Section */}
+  <div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+    <h2 className="text-3xl font-bold dark:text-white text-gray-900 mb-3">Key features</h2>
+    <p className="text-base dark:text-gray-400 text-gray-600 mb-8">
+      Everything you need to create professional documentation
+    </p>
+    
+    <CardGroup cols={2}>
+      <Card 
+        title="Drag-and-Drop Interface" 
+        icon="grip-vertical"
+        href="/guide/editor-interface"
+      >
+        Reorder sections effortlessly with intuitive drag-and-drop functionality powered by dnd-kit.
+      </Card>
+      
+      <Card 
+        title="30+ Section Templates" 
+        icon="layer-group"
+        href="/guide/sections-library"
+      >
+        Pre-built templates for common README sections including badges, installation, usage, API reference, and more.
+      </Card>
+      
+      <Card 
+        title="Live Preview" 
+        icon="eye"
+        href="/guide/editor-interface"
+      >
+        See your README rendered in real-time with full markdown support and syntax highlighting.
+      </Card>
+      
+      <Card 
+        title="Multi-Language Support" 
+        icon="globe"
+        href="/guide/internationalization"
+      >
+        Interface available in English, Chinese, Portuguese, and Turkish with i18n support.
+      </Card>
+      
+      <Card 
+        title="Dark Mode" 
+        icon="moon"
+        href="/guide/customization"
+      >
+        Toggle between light and dark themes for comfortable editing at any time of day.
+      </Card>
+      
+      <Card 
+        title="Auto-Save" 
+        icon="floppy-disk"
+        href="/guide/customization"
+      >
+        Your work is automatically saved to browser storage — never lose progress.
+      </Card>
+    </CardGroup>
+  </div>
 
-## Make it yours
+  {/* Explore by Topic Section */}
+  <div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+    <h2 className="text-3xl font-bold dark:text-white text-gray-900 mb-3">Explore by topic</h2>
+    <p className="text-base dark:text-gray-400 text-gray-600 mb-8">
+      Dive deeper into specific areas
+    </p>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <a 
+        href="/guide/sections-library" 
+        className="group block rounded-2xl border dark:border-[#27272a] border-gray-200 dark:hover:border-[#44ddab] hover:border-[#44ddab] overflow-hidden transition-colors no-underline"
+      >
+        <div className="h-56 dark:bg-[#1a1d27] bg-gray-50 flex items-center justify-center overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
+            alt="Section templates preview"
+            className="w-full h-full object-cover"
+            noZoom
+          />
+        </div>
+        <div className="p-6 dark:bg-[#1a1d27] bg-white">
+          <h3 className="text-base font-semibold dark:text-white text-gray-900 mb-2">Section Templates</h3>
+          <p className="text-sm dark:text-gray-400 text-gray-600 mb-3">
+            Explore all available README sections and learn when to use each one
+          </p>
+          <span className="inline-flex items-center text-sm font-medium dark:text-[#44ddab] text-[#25966f] dark:group-hover:text-[#a5fbe1] group-hover:text-[#44ddab]">
+            View templates
+            <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+      </a>
+      
+      <a 
+        href="/developers/architecture" 
+        className="group block rounded-2xl border dark:border-[#27272a] border-gray-200 dark:hover:border-[#44ddab] hover:border-[#44ddab] overflow-hidden transition-colors no-underline"
+      >
+        <div className="h-56 dark:bg-[#1a1d27] bg-gray-50 flex items-center justify-center overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=800&auto=format&fit=crop"
+            alt="Architecture diagram"
+            className="w-full h-full object-cover"
+            noZoom
+          />
+        </div>
+        <div className="p-6 dark:bg-[#1a1d27] bg-white">
+          <h3 className="text-base font-semibold dark:text-white text-gray-900 mb-2">Architecture Overview</h3>
+          <p className="text-sm dark:text-gray-400 text-gray-600 mb-3">
+            Understand how the editor works under the hood and how to contribute
+          </p>
+          <span className="inline-flex items-center text-sm font-medium dark:text-[#44ddab] text-[#25966f] dark:group-hover:text-[#a5fbe1] group-hover:text-[#44ddab]">
+            Learn more
+            <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
 
-Design a docs site that looks great and empowers your users.
+  {/* Resources Section */}
+  <div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+    <h2 className="text-3xl font-bold dark:text-white text-gray-900 mb-3">Resources</h2>
+    <p className="text-base dark:text-gray-400 text-gray-600 mb-8">
+      Everything you need to get help and stay up to date
+    </p>
+    
+    <CardGroup cols={3}>
+      <Card 
+        title="FAQ" 
+        icon="circle-question"
+        href="/resources/faq"
+      >
+        Find answers to common questions about using the editor
+      </Card>
+      
+      <Card 
+        title="Contributing" 
+        icon="code-pull-request"
+        href="/developers/contributing"
+      >
+        Learn how to contribute to the open-source project
+      </Card>
+      
+      <Card 
+        title="Changelog" 
+        icon="clock-rotate-left"
+        href="/resources/changelog"
+      >
+        See what's new in recent releases
+      </Card>
+    </CardGroup>
+  </div>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
-
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+  {/* Community CTA Section */}
+  <div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+    <div className="rounded-2xl dark:bg-[#1a1d27] bg-gray-50 border dark:border-[#27272a] border-gray-200 p-8 sm:p-12">
+      <div className="max-w-3xl mx-auto text-center">
+        <h2 className="text-3xl font-bold dark:text-white text-gray-900 mb-4">
+          Ready to create your README?
+        </h2>
+        <p className="text-lg dark:text-gray-400 text-gray-600 mb-8">
+          Join thousands of developers using Readme.so to build professional documentation
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="https://readme-so-community.vercel.app" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-[#44ddab] rounded-lg hover:bg-[#25966f] transition-colors no-underline"
+          >
+            Launch Editor
+          </a>
+          <a 
+            href="https://github.com/koushikromel/readme-so-community" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold dark:text-white text-gray-900 dark:bg-[#242838] bg-white border dark:border-[#27272a] border-gray-200 rounded-lg dark:hover:bg-[#2a2e42] hover:bg-gray-50 transition-colors no-underline"
+          >
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

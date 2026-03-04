@@ -1,0 +1,566 @@
+---
+title: 'Testing Guide'
+description: 'Learn how to write and run tests for Readme.so components'
+---
+
+## Testing Stack
+
+Readme.so uses a comprehensive testing setup:
+
+- **Jest** - JavaScript testing framework
+- **React Testing Library** - React component testing utilities
+- **@testing-library/user-event** - User interaction simulation
+- **@testing-library/jest-dom** - Custom Jest matchers for DOM
+
+## Running Tests
+
+The project includes several npm scripts for running tests:
+
+<CodeGroup>
+```bash Run All Tests
+npm test
+```
+
+```bash Watch Mode
+npm test:watch
+```
+
+```bash With Coverage
+npm test -- --coverage
+```
+
+```bash Specific Test File
+npm test SectionsColumn.test.js
+```
+</CodeGroup>
+
+### Test Scripts Explained
+
+| Command | Description |
+|---------|-------------|
+| `npm test` | Runs all tests once and exits |
+| `npm test:watch` | Runs tests in watch mode, re-running on file changes |
+| `npm test -- --coverage` | Generates code coverage report |
+| `npm test -- --verbose` | Shows individual test results |
+
+## Jest Configuration
+
+The Jest configuration is defined in `jest.config.js`:
+
+```javascript
+module.exports = {
+  resetModules: true,
+  restoreMocks: true,
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  testPathIgnorePatterns: [
+    '<rootDir>/*.js', 
+    '<rootDir>/.next/', 
+    '<rootDir>/node_modules/'
+  ],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '<rootDir>/components/*', 
+    '<rootDir>/pages/editor.js'
+  ],
+  coveragePathIgnorePatterns: ['<rootDir>/.next/*'],
+}
+```
+
+**Key Settings:**
+- **resetModules** - Resets module registry before each test
+- **restoreMocks** - Restores mocked functions after each test
+- **setupFilesAfterEnv** - Runs setup file before tests
+- **collectCoverageFrom** - Specifies which files to include in coverage
+
+### Jest Setup File
+
+`jest.setup.js` configures the testing environment:
+
+```javascript
+import '@testing-library/jest-dom'
+```
+
+This imports custom matchers like:
+- `toBeInTheDocument()`
+- `toHaveClass()`
+- `toHaveTextContent()`
+- `toBeVisible()`
+
+## Test Structure
+
+Tests are located in the `components/__tests__/` directory:
+
+```
+components/
+├── __tests__/
+│   ├── SectionsColumn.test.js
+│   ├── EditorColumn.test.js
+│   ├── PreviewColumn.test.js
+│   ├── CustomSection.test.js
+│   ├── Nav.test.js
+│   ├── DownloadModal.test.js
+│   ├── SortableItem.test.js
+│   ├── Tabs.test.js
+│   └── ...
+├── SectionsColumn.js
+├── EditorColumn.js
+└── ...
+```
+
+<Tip>
+  Each component file has a corresponding test file with the same name plus `.test.js`
+</Tip>
+
+## Writing Tests
+
+### Basic Test Structure
+
+```javascript
+import { render, screen } from '@testing-library/react'
+import { MyComponent } from '../MyComponent'
+
+describe('MyComponent', () => {
+  it('renders without crashing', () => {
+    render(<MyComponent />)
+    expect(screen.getByText('Hello')).toBeInTheDocument()
+  })
+})
+```
+
+### Example: Testing a Simple Component
+
+Let's test a hypothetical `SectionButton` component:
+
+```javascript
+import { render, screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import SectionButton from '../SectionButton'
+
+describe('SectionButton', () => {
+  it('renders the section name', () => {
+    render(
+      <SectionButton 
+        section={{ name: 'Installation', slug: 'installation' }}
+      />
+    )
+    
+    expect(screen.getByText('Installation')).toBeInTheDocument()
+  })
+
+  it('calls onClick when clicked', () => {
+    const handleClick = jest.fn()
+    
+    render(
+      <SectionButton 
+        section={{ name: 'Installation', slug: 'installation' }}
+        onClick={handleClick}
+      />
+    )
+    
+    fireEvent.click(screen.getByText('Installation'))
+    
+    expect(handleClick).toHaveBeenCalledTimes(1)
+  })
+
+  it('is disabled when disabled prop is true', () => {
+    render(
+      <SectionButton 
+        section={{ name: 'Installation', slug: 'installation' }}
+        disabled={true}
+      />
+    )
+    
+    const button = screen.getByRole('button')
+    expect(button).toBeDisabled()
+  })
+})
+```
+
+### Testing User Interactions
+
+Use `@testing-library/user-event` for realistic user interactions:
+
+```javascript
+import userEvent from '@testing-library/user-event'
+
+it('updates input on typing', async () => {
+  const user = userEvent.setup()
+  render(<SearchFilter />)
+  
+  const input = screen.getByRole('textbox')
+  await user.type(input, 'installation')
+  
+  expect(input).toHaveValue('installation')
+})
+```
+
+### Testing with Props
+
+Test components with different prop combinations:
+
+```javascript
+describe('PreviewColumn', () => {
+  const mockGetTemplate = jest.fn((slug) => ({
+    slug,
+    name: 'Test',
+    markdown: '## Test'
+  }))
+
+  it('renders preview mode by default', () => {
+    render(
+      <PreviewColumn 
+        selectedSectionSlugs={['title']}
+        getTemplate={mockGetTemplate}
+        selectedTab="preview"
+        markdown="# Test README"
+      />
+    )
+    
+    expect(screen.getByText('Test README')).toBeInTheDocument()
+  })
+
+  it('renders raw markdown in raw mode', () => {
+    render(
+      <PreviewColumn 
+        selectedSectionSlugs={['title']}
+        getTemplate={mockGetTemplate}
+        selectedTab="raw"
+        markdown="# Test README"
+      />
+    )
+    
+    const textarea = screen.getByRole('textbox')
+    expect(textarea).toHaveValue('# Test README')
+  })
+})
+```
+
+## Common Testing Patterns
+
+### Mocking localStorage
+
+Many components use localStorage. Mock it in your tests:
+
+```javascript
+beforeEach(() => {
+  // Clear localStorage before each test
+  localStorage.clear()
+  
+  // Mock localStorage methods
+  Storage.prototype.getItem = jest.fn()
+  Storage.prototype.setItem = jest.fn()
+  Storage.prototype.removeItem = jest.fn()
+})
+
+it('saves data to localStorage', () => {
+  render(<SectionsColumn {...props} />)
+  
+  // Perform actions...
+  
+  expect(localStorage.setItem).toHaveBeenCalledWith(
+    'current-slug-list',
+    expect.any(String)
+  )
+})
+```
+
+### Mocking Next.js Router
+
+For components using Next.js router:
+
+```javascript
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    pathname: '/editor',
+    query: {},
+  }),
+}))
+```
+
+### Mocking i18next Translations
+
+Mock translation functions:
+
+```javascript
+jest.mock('next-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => key,
+    i18n: {
+      language: 'en',
+      changeLanguage: jest.fn(),
+    },
+  }),
+}))
+```
+
+### Testing Async Operations
+
+Handle asynchronous operations with `waitFor`:
+
+```javascript
+import { render, screen, waitFor } from '@testing-library/react'
+
+it('loads data asynchronously', async () => {
+  render(<DataComponent />)
+  
+  await waitFor(() => {
+    expect(screen.getByText('Loaded Data')).toBeInTheDocument()
+  })
+})
+```
+
+### Testing Hooks
+
+Test custom hooks using `renderHook`:
+
+```javascript
+import { renderHook, act } from '@testing-library/react'
+import useLocalStorage from '../hooks/useLocalStorage'
+
+describe('useLocalStorage', () => {
+  it('saves backup with debounce', async () => {
+    const { result } = renderHook(() => useLocalStorage())
+    
+    act(() => {
+      result.current.saveBackup([{ slug: 'test' }])
+    })
+    
+    // Wait for debounce
+    await new Promise(resolve => setTimeout(resolve, 1100))
+    
+    expect(localStorage.setItem).toHaveBeenCalled()
+  })
+})
+```
+
+## Testing Guidelines
+
+### What to Test
+
+<Tip>
+  Focus on testing behavior, not implementation details.
+</Tip>
+
+**Do Test:**
+- ✅ Component renders correctly with different props
+- ✅ User interactions produce expected results
+- ✅ State changes work as intended
+- ✅ Error states are handled properly
+- ✅ Accessibility requirements are met
+- ✅ Edge cases and boundary conditions
+
+**Don't Test:**
+- ❌ Implementation details (internal state, private methods)
+- ❌ Third-party library internals
+- ❌ Styles and CSS (unless critical to functionality)
+
+### Writing Testable Components
+
+**Good: Testable Component**
+```javascript
+export const SectionList = ({ sections, onSelect }) => {
+  return (
+    <ul role="list">
+      {sections.map(section => (
+        <li key={section.slug}>
+          <button onClick={() => onSelect(section.slug)}>
+            {section.name}
+          </button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+**Bad: Hard to Test**
+```javascript
+const SectionList = () => {
+  // Hard-coded data
+  const sections = getSections()
+  
+  // Side effects in render
+  useEffect(() => {
+    analytics.track('view')
+  }, [])
+  
+  return (
+    <ul>
+      {sections.map(s => (
+        <li onClick={() => {
+          // Complex logic
+          doManyThings(s)
+        }}>
+          {s.name}
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### Test Coverage Goals
+
+<Warning>
+  Aim for meaningful test coverage, not just high percentages. 100% coverage doesn't guarantee bug-free code.
+</Warning>
+
+**Current Coverage Targets:**
+- Components: Covered in `collectCoverageFrom`
+- Editor page: Covered in `collectCoverageFrom`
+- Critical user paths: High priority
+
+**View Coverage Report:**
+```bash
+npm test -- --coverage --coverageReporters=html
+open coverage/index.html
+```
+
+## Debugging Tests
+
+### Common Issues
+
+**Problem: Test times out**
+```javascript
+// Solution: Increase timeout for slow operations
+jest.setTimeout(10000) // 10 seconds
+
+it('slow operation', async () => {
+  // ...
+}, 10000)
+```
+
+**Problem: Can't find element**
+```javascript
+// Solution: Use screen.debug() to see rendered output
+it('finds element', () => {
+  render(<MyComponent />)
+  screen.debug() // Prints DOM to console
+  
+  // Or debug specific element
+  screen.debug(screen.getByRole('button'))
+})
+```
+
+**Problem: State updates not reflected**
+```javascript
+// Solution: Wrap state updates in act()
+import { act } from '@testing-library/react'
+
+act(() => {
+  fireEvent.click(button)
+})
+```
+
+### Running Tests in Debug Mode
+
+```bash
+# Run with Node debugger
+node --inspect-brk node_modules/.bin/jest --runInBand
+
+# In Chrome, navigate to:
+chrome://inspect
+```
+
+## Continuous Integration
+
+Tests run automatically on GitHub Actions for every pull request:
+
+**Pre-merge Checks:**
+- ✅ All tests pass
+- ✅ Linting passes
+- ✅ Build succeeds
+
+<Info>
+  Pull requests must pass all automated checks before they can be merged.
+</Info>
+
+## Best Practices
+
+### 1. Use Descriptive Test Names
+
+<CodeGroup>
+```javascript Good
+it('displays error message when email is invalid', () => {})
+it('disables submit button while form is submitting', () => {})
+```
+
+```javascript Bad
+it('works', () => {})
+it('test 1', () => {})
+```
+</CodeGroup>
+
+### 2. Follow AAA Pattern
+
+```javascript
+it('example test', () => {
+  // Arrange: Set up test data and conditions
+  const user = { name: 'Alice' }
+  render(<UserProfile user={user} />)
+  
+  // Act: Perform the action being tested
+  fireEvent.click(screen.getByText('Edit'))
+  
+  // Assert: Verify the expected outcome
+  expect(screen.getByText('Editing Alice')).toBeInTheDocument()
+})
+```
+
+### 3. Keep Tests Isolated
+
+```javascript
+// Bad: Tests depend on each other
+let sharedState = []
+
+it('adds item', () => {
+  sharedState.push('item')
+})
+
+it('removes item', () => {
+  sharedState.pop() // Depends on previous test
+})
+
+// Good: Each test is independent
+it('adds item', () => {
+  const state = []
+  state.push('item')
+  expect(state).toHaveLength(1)
+})
+```
+
+### 4. Use Data-Testid Sparingly
+
+Prefer semantic queries:
+
+```javascript
+// Best: Semantic queries
+screen.getByRole('button', { name: 'Submit' })
+screen.getByLabelText('Email address')
+screen.getByText('Welcome')
+
+// Acceptable: When no semantic option exists
+screen.getByTestId('custom-component')
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Local Setup" icon="laptop-code" href="/developers/local-setup">
+    Set up your development environment
+  </Card>
+  <Card title="Architecture" icon="sitemap" href="/developers/architecture">
+    Understand the codebase structure
+  </Card>
+  <Card title="Contributing" icon="code-pull-request" href="/developers/contributing">
+    Learn the contribution workflow
+  </Card>
+  <Card title="View Tests" icon="github" href="https://github.com/koushikromel/readme-so-community/tree/main/components/__tests__">
+    Browse existing tests on GitHub
+  </Card>
+</CardGroup>
+
+---
+
+Well-tested code is maintainable code. Thank you for writing tests!

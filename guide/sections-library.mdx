@@ -1,0 +1,600 @@
+---
+title: Sections Library
+description: Complete reference of all available README section templates in Readme.so
+---
+
+Readme.so provides a comprehensive library of pre-built README section templates. Each template includes markdown boilerplate that you can customize for your project.
+
+## Available Section Templates
+
+The sections library includes 33 pre-built templates organized alphabetically. All templates are defined in `data/section-templates-en_EN.js`.
+
+### Project Documentation Sections
+
+<AccordionGroup>
+  <Accordion title="Title and Description" icon="heading">
+    **Slug**: `title-and-description`
+    
+    The most important section of your README - includes your project title and a brief description.
+    
+    ```markdown
+    # Project Title
+    
+    A brief description of what this project does and who it's for
+    ```
+    
+    <Note>This section is selected by default and cannot be removed.</Note>
+  </Accordion>
+
+  <Accordion title="Logo" icon="image">
+    **Slug**: `logo`
+    
+    Add your project's logo or banner image.
+    
+    ```markdown
+    ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+    ```
+  </Accordion>
+
+  <Accordion title="Badges" icon="shield">
+    **Slug**: `badges`
+    
+    Display shields.io badges for licenses, build status, and more.
+    
+    ```markdown
+    ## Badges
+    
+    Add badges from somewhere like: [shields.io](https://shields.io/)
+    
+    [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+    ```
+  </Accordion>
+
+  <Accordion title="Features" icon="star">
+    **Slug**: `features`
+    
+    Highlight key features of your project.
+    
+    ```markdown
+    ## Features
+    
+    - Light/dark mode toggle
+    - Live previews
+    - Fullscreen mode
+    - Cross platform
+    ```
+  </Accordion>
+
+  <Accordion title="Demo" icon="video">
+    **Slug**: `demo`
+    
+    Link to or embed a demo of your project.
+    
+    ```markdown
+    ## Demo
+    
+    Insert gif or link to demo
+    ```
+  </Accordion>
+
+  <Accordion title="Screenshots" icon="camera">
+    **Slug**: `screenshots`
+    
+    Show your project in action with screenshots.
+    
+    ```markdown
+    ## Screenshots
+    
+    ![App Screenshot](https://dummyimage.com/468x300?text=App+Screenshot+Here)
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Setup and Installation Sections
+
+<AccordionGroup>
+  <Accordion title="Installation" icon="download">
+    **Slug**: `installation`
+    
+    Instructions for installing your project via package managers.
+    
+    ```markdown
+    ## Installation
+    
+    Install my-project with npm
+    
+    \`\`\`bash
+      npm install my-project
+      cd my-project
+    \`\`\`
+    ```
+  </Accordion>
+
+  <Accordion title="Run Locally" icon="terminal">
+    **Slug**: `run-locally`
+    
+    Step-by-step guide to run the project from source.
+    
+    ```markdown
+    ## Run Locally
+    
+    Clone the project
+    
+    \`\`\`bash
+      git clone https://link-to-project
+    \`\`\`
+    
+    Go to the project directory
+    
+    \`\`\`bash
+      cd my-project
+    \`\`\`
+    
+    Install dependencies
+    
+    \`\`\`bash
+      npm install
+    \`\`\`
+    
+    Start the server
+    
+    \`\`\`bash
+      npm run start
+    \`\`\`
+    ```
+  </Accordion>
+
+  <Accordion title="Environment Variables" icon="key">
+    **Slug**: `env-variables`
+    
+    Document required environment variables.
+    
+    ```markdown
+    ## Environment Variables
+    
+    To run this project, you will need to add the following environment variables to your .env file
+    
+    \`API_KEY\`
+    
+    \`ANOTHER_API_KEY\`
+    ```
+  </Accordion>
+
+  <Accordion title="Deployment" icon="rocket">
+    **Slug**: `deployment`
+    
+    Instructions for deploying your project.
+    
+    ```markdown
+    ## Deployment
+    
+    To deploy this project run
+    
+    \`\`\`bash
+      npm run deploy
+    \`\`\`
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Usage and Technical Sections
+
+<AccordionGroup>
+  <Accordion title="Usage/Examples" icon="code">
+    **Slug**: `usage-examples`
+    
+    Show code examples of how to use your project.
+    
+    ```markdown
+    ## Usage/Examples
+    
+    \`\`\`javascript
+    import Component from 'my-project'
+    
+    function App() {
+      return <Component />
+    }
+    \`\`\`
+    ```
+  </Accordion>
+
+  <Accordion title="API Reference" icon="plug">
+    **Slug**: `api`
+    
+    Document your API endpoints and functions.
+    
+    ```markdown
+    ## API Reference
+    
+    #### Get all items
+    
+    \`\`\`http
+      GET /api/items
+    \`\`\`
+    
+    | Parameter | Type     | Description                |
+    | :-------- | :------- | :------------------------- |
+    | \`api_key\` | \`string\` | **Required**. Your API key |
+    ```
+  </Accordion>
+
+  <Accordion title="Tech Stack" icon="layer-group">
+    **Slug**: `tech`
+    
+    List the technologies used in your project.
+    
+    ```markdown
+    ## Tech Stack
+    
+    **Client:** React, Redux, TailwindCSS
+    
+    **Server:** Node, Express
+    ```
+  </Accordion>
+
+  <Accordion title="Color Reference" icon="palette">
+    **Slug**: `colorreference`
+    
+    Document your project's color palette.
+    
+    ```markdown
+    ## Color Reference
+    
+    | Color             | Hex                                                                |
+    | ----------------- | ------------------------------------------------------------------ |
+    | Example Color | ![#0a192f](https://dummyimage.com/10/0a192f/white?text=+) #0a192f |
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Testing and Quality Sections
+
+<AccordionGroup>
+  <Accordion title="Running Tests" icon="flask">
+    **Slug**: `tests`
+    
+    Instructions for running your test suite.
+    
+    ```markdown
+    ## Running Tests
+    
+    To run tests, run the following command
+    
+    \`\`\`bash
+      npm run test
+    \`\`\`
+    ```
+  </Accordion>
+
+  <Accordion title="Optimizations" icon="gauge">
+    **Slug**: `optimizations`
+    
+    Document performance improvements and optimizations.
+    
+    ```markdown
+    ## Optimizations
+    
+    What optimizations did you make in your code? E.g. refactors, performance improvements, accessibility
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Community and Support Sections
+
+<AccordionGroup>
+  <Accordion title="Contributing" icon="users">
+    **Slug**: `contributing`
+    
+    Guidelines for contributing to your project.
+    
+    ```markdown
+    ## Contributing
+    
+    Contributions are always welcome!
+    
+    See \`contributing.md\` for ways to get started.
+    
+    Please adhere to this project's \`code of conduct\`.
+    ```
+  </Accordion>
+
+  <Accordion title="Authors" icon="user">
+    **Slug**: `authors`
+    
+    Credit the project authors and maintainers.
+    
+    ```markdown
+    ## Authors
+    
+    - [@koushikromel](https://www.github.com/koushikromel)
+    ```
+  </Accordion>
+
+  <Accordion title="Support" icon="life-ring">
+    **Slug**: `support`
+    
+    Provide support contact information.
+    
+    ```markdown
+    ## Support
+    
+    For support, email fake@fake.com or join our Slack channel.
+    ```
+  </Accordion>
+
+  <Accordion title="Feedback" icon="comment">
+    **Slug**: `feedback`
+    
+    Invite users to provide feedback.
+    
+    ```markdown
+    ## Feedback
+    
+    If you have any feedback, please reach out to us at fake@fake.com
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Additional Information Sections
+
+<AccordionGroup>
+  <Accordion title="Documentation" icon="book">
+    **Slug**: `documentation`
+    
+    Link to full documentation.
+    
+    ```markdown
+    ## Documentation
+    
+    [Documentation](https://linktodocumentation)
+    ```
+  </Accordion>
+
+  <Accordion title="License" icon="scale-balanced">
+    **Slug**: `license`
+    
+    Specify your project's license.
+    
+    ```markdown
+    ## License
+    
+    [MIT](https://choosealicense.com/licenses/mit/)
+    ```
+  </Accordion>
+
+  <Accordion title="Roadmap" icon="map">
+    **Slug**: `roadmap`
+    
+    Share your project's future plans.
+    
+    ```markdown
+    ## Roadmap
+    
+    - Additional browser support
+    - Add more integrations
+    ```
+  </Accordion>
+
+  <Accordion title="Acknowledgements" icon="heart">
+    **Slug**: `acknowledgement`
+    
+    Thank contributors and list resources.
+    
+    ```markdown
+    ## Acknowledgements
+    
+     - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+     - [Awesome README](https://github.com/matiassingers/awesome-readme)
+    ```
+  </Accordion>
+
+  <Accordion title="FAQ" icon="question">
+    **Slug**: `faq`
+    
+    Answer frequently asked questions.
+    
+    ```markdown
+    ## FAQ
+    
+    #### Question 1
+    
+    Answer 1
+    
+    #### Question 2
+    
+    Answer 2
+    ```
+  </Accordion>
+
+  <Accordion title="Used By" icon="building">
+    **Slug**: `used-by`
+    
+    List companies or projects using your project.
+    
+    ```markdown
+    ## Used By
+    
+    This project is used by the following companies:
+    
+    - Company 1
+    - Company 2
+    ```
+  </Accordion>
+
+  <Accordion title="Related" icon="link">
+    **Slug**: `related`
+    
+    Link to related projects.
+    
+    ```markdown
+    ## Related
+    
+    Here are some related projects
+    
+    [Awesome README](https://github.com/matiassingers/awesome-readme)
+    ```
+  </Accordion>
+
+  <Accordion title="Lessons" icon="graduation-cap">
+    **Slug**: `lessons`
+    
+    Share what you learned building the project.
+    
+    ```markdown
+    ## Lessons Learned
+    
+    What did you learn while building this project? What challenges did you face and how did you overcome them?
+    ```
+  </Accordion>
+
+  <Accordion title="Appendix" icon="paperclip">
+    **Slug**: `appendix`
+    
+    Additional information that doesn't fit elsewhere.
+    
+    ```markdown
+    ## Appendix
+    
+    Any additional information goes here
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### GitHub Profile Sections
+
+Readme.so also includes special sections designed for GitHub profile READMEs:
+
+<AccordionGroup>
+  <Accordion title="Github Profile - Introduction" icon="hand-wave">
+    **Slug**: `github-profile-intro`
+    
+    ```markdown
+    # Hi, I'm Koushik! 👋
+    ```
+  </Accordion>
+
+  <Accordion title="Github Profile - About Me" icon="user">
+    **Slug**: `github-profile-about-me`
+    
+    ```markdown
+    ## 🚀 About Me
+    I'm a full stack developer...
+    ```
+  </Accordion>
+
+  <Accordion title="Github Profile - Skills" icon="wrench">
+    **Slug**: `github-profile-skills`
+    
+    ```markdown
+    ## 🛠 Skills
+    Javascript, HTML, CSS...
+    ```
+  </Accordion>
+
+  <Accordion title="Github Profile - Links" icon="globe">
+    **Slug**: `github-profile-links`
+    
+    ```markdown
+    ## 🔗 Links
+    [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://koushikromel.github.io/)
+    [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+    ```
+  </Accordion>
+
+  <Accordion title="Github Profile - Other" icon="ellipsis">
+    **Slug**: `github-profile-other`
+    
+    ```markdown
+    ## Other Common Github Profile Sections
+    👩‍💻 I'm currently working on...
+    
+    🧠 I'm currently learning...
+    
+    👯‍♀️ I'm looking to collaborate on...
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Custom Sections
+
+In addition to the pre-built templates, you can create your own custom sections:
+
+<Steps>
+  <Step title="Click 'Add Custom Section'">
+    Find the button in the Sections column (implemented in `CustomSection.js:128-146`)
+  </Step>
+  <Step title="Enter Section Title">
+    Type a descriptive name for your section
+  </Step>
+  <Step title="Click 'Add Section'">
+    Your custom section is created with a basic markdown heading
+  </Step>
+  <Step title="Edit Content">
+    Customize the markdown content in the editor
+  </Step>
+</Steps>
+
+Custom sections are created with the slug format `custom-{title}` where `{title}` is your section name in kebab-case.
+
+<Note>
+Custom sections behave exactly like built-in sections - you can reorder them, edit them, reset them, and delete them using the same controls.
+</Note>
+
+## Section Management
+
+### Adding Sections
+
+Click any section from the available sections list to add it to your README. The section will:
+- Appear in the selected sections list
+- Be added to the end of your README (you can reorder it later)
+- Automatically focus in the editor for immediate editing
+
+### Removing Sections
+
+Click the delete icon (X) on any selected section to remove it from your README. The section will:
+- Return to the available sections list
+- Be removed from your README preview
+- Clear from the editor if it was currently focused
+
+<Warning>
+Removing a section does not delete your custom edits. If you add the section back, your previous edits will still be there (they're stored in local storage).
+</Warning>
+
+### Resetting Sections
+
+Click the reset icon on any section to restore it to its original template:
+- For built-in sections: restores the default markdown template
+- For custom sections: restores the basic heading with your section title
+
+### Resetting All Sections
+
+Click the "Reset" button in the Sections column header to remove all sections and start fresh:
+
+<Warning>
+This action requires confirmation and will:
+- Remove all selected sections except "Title and Description"
+- Clear all your edits and customizations
+- Delete the backup from local storage
+
+This action cannot be undone.
+</Warning>
+
+## Searching Sections
+
+Use the search filter to quickly find sections in the available sections list:
+
+1. Type keywords in the search box (e.g., "install", "test", "deploy")
+2. The list filters to show only matching sections
+3. The search is case-insensitive and matches against section names
+4. Clear the search to see all sections again
+
+The search functionality is implemented in `SectionFilter.js` and uses a simple substring match against section names.
+
+## Section Order Persistence
+
+Your section selection and order are automatically saved to browser local storage:
+- **Key**: `current-slug-list`
+- **Format**: Comma-separated list of section slugs
+- **Updated**: Every time you add, remove, or reorder sections
+
+When you return to Readme.so, your sections are automatically restored in the same order you left them.

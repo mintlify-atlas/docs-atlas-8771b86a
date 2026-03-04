@@ -1,0 +1,398 @@
+---
+title: Customization
+description: Customize your Readme.so experience with dark mode, custom sections, search filters, and more
+---
+
+Readme.so offers several customization options to personalize your README creation experience. This guide covers all available customization features.
+
+## Dark Mode
+
+Toggle between light and dark themes to match your preference or reduce eye strain.
+
+### Enabling Dark Mode
+
+<Steps>
+  <Step title="Locate the Theme Toggle">
+    Find the sun/moon icon in the top navigation bar (on desktop) or in the tabs (on mobile)
+  </Step>
+  <Step title="Click to Toggle">
+    Click the icon to switch between light and dark modes
+  </Step>
+  <Step title="Automatic Persistence">
+    Your preference is saved to local storage and persists across sessions
+  </Step>
+</Steps>
+
+### How Dark Mode Works
+
+The dark mode implementation uses localStorage to remember your preference:
+
+```javascript
+// From Nav.js:66-77
+<button
+  onClick={() => setDarkMode(!darkMode)}
+  aria-label="Color Mode"
+  className="toggle-dark-mode"
+>
+  <Image
+    alt={darkMode ? 'dark' : 'light'}
+    src={darkMode ? '/toggle_sun.svg' : '/toggle_moon.svg'}
+    width={40}
+    height={40}
+  />
+</button>
+```
+
+<Tabs>
+  <Tab title="Light Mode">
+    - Clean, bright interface
+    - Better for well-lit environments
+    - Traditional documentation aesthetic
+    - White background with dark text
+  </Tab>
+  <Tab title="Dark Mode">
+    - Reduced eye strain in low-light conditions
+    - Darker background with light text
+    - VS Code-style dark editor theme
+    - Consistent with modern development tools
+  </Tab>
+</Tabs>
+
+### Theme Persistence
+
+Your theme choice is stored with these settings:
+- **Storage key**: `color-theme`
+- **Values**: `'light'` or `'dark'`
+- **Scope**: Persists across browser sessions
+- **Location**: Browser localStorage
+
+<Note>
+The dark mode setting applies globally across all three columns: Sections, Editor, and Preview.
+</Note>
+
+## Custom Sections
+
+Create completely custom README sections beyond the built-in templates.
+
+### Creating Custom Sections
+
+<Steps>
+  <Step title="Open Custom Section Dialog">
+    Click the **"+ Add Custom Section"** button in the Sections column
+  </Step>
+  <Step title="Enter Section Title">
+    Type a descriptive name for your section (e.g., "Architecture", "Performance", "Security")
+  </Step>
+  <Step title="Create Section">
+    Click **"Add Section"** to create your custom section
+  </Step>
+  <Step title="Edit Content">
+    The section appears in your selected sections list with a basic heading. Edit it in the Monaco editor to add your content.
+  </Step>
+</Steps>
+
+### Custom Section Features
+
+<CardGroup cols={2}>
+  <Card title="Automatic Slug Generation" icon="link">
+    Your section title is converted to a URL-friendly slug (e.g., "My Section" becomes `custom-my-section`)
+  </Card>
+  <Card title="Full Markdown Support" icon="markdown">
+    Custom sections support all markdown features, just like built-in sections
+  </Card>
+  <Card title="Drag and Drop" icon="up-down">
+    Reorder custom sections alongside built-in sections
+  </Card>
+  <Card title="Persistent Storage" icon="floppy-disk">
+    Custom sections are saved to localStorage and restored on your next visit
+  </Card>
+</CardGroup>
+
+### Custom Section Template
+
+When you create a custom section, it starts with this basic template:
+
+```markdown
+## Your Section Title
+```
+
+From there, you can add any content you need:
+
+<Accordion title="Example: Custom Architecture Section">
+```markdown
+## Architecture
+
+Our application follows a microservices architecture with the following components:
+
+### Frontend
+- React SPA with TypeScript
+- Redux for state management
+- Styled with TailwindCSS
+
+### Backend
+- Node.js REST API
+- PostgreSQL database
+- Redis for caching
+
+### Infrastructure
+- Docker containers
+- Kubernetes orchestration
+- AWS cloud hosting
+```
+</Accordion>
+
+### Managing Custom Sections
+
+Custom sections can be managed just like built-in sections:
+
+| Action | Description |
+|--------|-------------|
+| **Edit** | Click the section to edit its content in the Monaco editor |
+| **Reorder** | Drag and drop to change position |
+| **Reset** | Restores the section to its original heading |
+| **Delete** | Removes the section from your README |
+
+<Warning>
+Custom sections are identified by the `custom-` prefix in their slug. Avoid editing this prefix manually, as it may cause issues with section management.
+</Warning>
+
+## Search and Filter
+
+Quickly find sections in the library using the search filter.
+
+### Using Section Search
+
+The search filter appears at the top of the available sections list in the Sections column.
+
+<Steps>
+  <Step title="Locate Search Box">
+    Find the search input that says "Search for a section"
+  </Step>
+  <Step title="Type Keywords">
+    Enter any part of the section name (e.g., "install", "api", "test")
+  </Step>
+  <Step title="View Filtered Results">
+    The section list updates in real-time to show only matching sections
+  </Step>
+  <Step title="Clear Search">
+    Delete your search text to see all sections again
+  </Step>
+</Steps>
+
+### Search Behavior
+
+The search filter uses case-insensitive substring matching:
+
+```javascript
+// From SectionsColumn.js:181-187
+const getAutoCompleteResults = (searchQuery) => {
+  const suggestedSlugs = sectionSlugs.filter((slug) => {
+    return getTemplate(slug).name.toLowerCase().includes(searchQuery.toLowerCase())
+  })
+  
+  return suggestedSlugs.length ? suggestedSlugs : [undefined]
+}
+```
+
+<Tabs>
+  <Tab title="Successful Search">
+    If matching sections are found, they appear alphabetically in the filtered list.
+    
+    **Example**: Searching for "git" returns:
+    - Github Profile - About Me
+    - Github Profile - Introduction
+    - Github Profile - Links
+    - Github Profile - Other
+    - Github Profile - Skills
+  </Tab>
+  <Tab title="No Results">
+    If no sections match your search, you'll see:
+    
+    "The section you're looking for is unavailable"
+    
+    Try different keywords or clear the search to browse all sections.
+  </Tab>
+</Tabs>
+
+### Search Tips
+
+<AccordionGroup>
+  <Accordion title="Use Partial Matches">
+    You don't need to type the complete section name. Searching for "env" will find "Environment Variables".
+  </Accordion>
+  <Accordion title="Search by Topic">
+    Search for topics like "test", "install", or "deploy" to find related sections.
+  </Accordion>
+  <Accordion title="Case Doesn't Matter">
+    "API", "api", and "Api" all return the same results.
+  </Accordion>
+  <Accordion title="Clear Quickly">
+    The search input has a clear button (X) for quickly resetting the filter.
+  </Accordion>
+</AccordionGroup>
+
+## Editor Customization
+
+While the Monaco editor comes pre-configured, it includes several built-in features you can use:
+
+### Keyboard Shortcuts
+
+The Monaco editor supports many VS Code keyboard shortcuts:
+
+| Shortcut | Action | Platform |
+|----------|--------|----------|
+| `Ctrl/Cmd + F` | Find in editor | All |
+| `Ctrl/Cmd + H` | Find and replace | All |
+| `Alt + Up/Down` | Move line up/down | All |
+| `Ctrl/Cmd + D` | Add selection to next find match | All |
+| `Ctrl/Cmd + /` | Toggle line comment | All |
+| `Alt + Click` | Add cursor at position | All |
+| `Ctrl/Cmd + Z` | Undo | All |
+| `Ctrl/Cmd + Shift + Z` | Redo | All |
+
+### Editor Theme
+
+The editor uses the `vs-dark` theme by default, which provides:
+- Dark background (#1E1E1E)
+- Syntax highlighting for markdown
+- Matching VS Code appearance
+- Optimized for extended editing sessions
+
+<Note>
+The editor theme automatically switches based on your dark mode preference. When you toggle dark mode, both the preview and editor themes update accordingly.
+</Note>
+
+## Preview Customization
+
+The preview column offers two viewing modes to suit different needs.
+
+### Preview Modes
+
+<Tabs>
+  <Tab title="Preview Mode">
+    **Best for**: Seeing exactly how your README will look on GitHub
+    
+    Features:
+    - Full GitHub Flavored Markdown rendering
+    - Live updates as you type
+    - Proper styling for tables, code blocks, and images
+    - Automatic external link handling
+    
+    This mode uses the `react-markdown` library with `remark-gfm` plugin for accurate GitHub rendering.
+  </Tab>
+  <Tab title="Raw Mode">
+    **Best for**: Copying markdown or debugging formatting
+    
+    Features:
+    - Plain text view of your markdown source
+    - All sections combined in order
+    - Easy to copy entire README
+    - Useful for troubleshooting rendering issues
+    
+    This mode displays the exact markdown that will be downloaded.
+  </Tab>
+</Tabs>
+
+### Switching Preview Modes
+
+On desktop, tabs appear at the top of the Preview column:
+1. Click **"Preview"** to see the rendered markdown
+2. Click **"Raw"** to see the markdown source
+
+On mobile, preview modes are accessed through the main tab navigation.
+
+## Section Organization
+
+Organize your README sections to match your project's needs.
+
+### Reordering Sections
+
+<Steps>
+  <Step title="Find Selected Section">
+    Look in the top portion of the Sections column where selected sections are listed
+  </Step>
+  <Step title="Drag Section">
+    Click and hold any section, then drag it up or down
+  </Step>
+  <Step title="Drop in Position">
+    Release to place the section in its new position
+  </Step>
+  <Step title="See Updated Preview">
+    The preview column immediately reflects the new order
+  </Step>
+</Steps>
+
+### Best Practices for Section Order
+
+<Accordion title="Recommended Section Order">
+1. **Title and Description** - Always first
+2. **Badges** - Right after the title for visibility
+3. **Logo/Screenshots** - Visual introduction
+4. **Features** - What makes your project unique
+5. **Installation** - How to get started
+6. **Usage/Examples** - How to use it
+7. **API Reference** - Detailed documentation
+8. **Contributing** - How others can help
+9. **License** - Legal information
+10. **Authors/Acknowledgements** - Credits
+</Accordion>
+
+The drag-and-drop system uses `@dnd-kit` with collision detection and smooth animations for a polished reordering experience.
+
+## Local Storage Management
+
+All your customizations are stored in browser localStorage for persistence.
+
+### What Gets Stored
+
+<CardGroup cols={2}>
+  <Card title="Selected Sections" icon="list">
+    List of all sections you've added to your README
+  </Card>
+  <Card title="Section Content" icon="file-lines">
+    All edits to both built-in and custom sections
+  </Card>
+  <Card title="Section Order" icon="arrows-up-down">
+    The current arrangement of your sections
+  </Card>
+  <Card title="Theme Preference" icon="moon">
+    Your light/dark mode selection
+  </Card>
+  <Card title="Custom Sections" icon="plus">
+    All custom sections you've created
+  </Card>
+  <Card title="Focused Section" icon="bullseye">
+    Which section is currently being edited
+  </Card>
+</CardGroup>
+
+### Clearing Stored Data
+
+To start completely fresh:
+
+1. Click the **Reset** button in the Sections column header
+2. Confirm the action in the dialog
+3. All sections except "Title and Description" are removed
+4. All customizations are cleared from localStorage
+
+<Warning>
+Resetting clears all your work and cannot be undone. Make sure to download your README first if you want to keep a copy.
+</Warning>
+
+Alternatively, you can manually clear localStorage through your browser's developer tools:
+1. Open DevTools (F12)
+2. Go to Application > Storage > Local Storage
+3. Select your domain
+4. Delete the relevant keys or clear all storage
+
+## Accessibility Features
+
+Readme.so includes several accessibility features:
+
+- **Keyboard navigation** for drag-and-drop operations
+- **ARIA labels** on all interactive elements
+- **Focus indicators** on buttons and inputs
+- **Screen reader support** through semantic HTML
+- **High contrast** in both light and dark modes
+
+The Monaco editor also includes comprehensive accessibility features inherited from VS Code.

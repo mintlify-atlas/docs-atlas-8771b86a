@@ -1,0 +1,401 @@
+---
+title: Export & Download
+description: Learn how to download your README file and export your content from Readme.so
+---
+
+Once you've created your README, Readme.so makes it easy to download the markdown file and use it in your project.
+
+## Downloading Your README
+
+The download process is simple and works on both desktop and mobile devices.
+
+### How to Download
+
+<Steps>
+  <Step title="Complete Your README">
+    Add and customize all the sections you need for your project
+  </Step>
+  <Step title="Click Download Button">
+    Click the **Download** button in the top navigation bar
+  </Step>
+  <Step title="File Downloads Automatically">
+    Your browser downloads a file named `README.md` containing all your content
+  </Step>
+  <Step title="See Success Message">
+    A modal appears confirming your README was generated successfully
+  </Step>
+</Steps>
+
+<Note>
+The download button is always visible in the navigation bar, even before you've added any content. You can download at any time.
+</Note>
+
+### Download Button Location
+
+<Tabs>
+  <Tab title="Desktop">
+    The download button appears in the top-right corner of the navigation bar with:
+    - A download icon
+    - The text "Download"
+    - Emerald green background color
+    
+    It's positioned next to the dark mode toggle for easy access.
+  </Tab>
+  <Tab title="Mobile">
+    On mobile devices, the download button shows:
+    - Only the download icon (no text to save space)
+    - Same emerald green styling
+    - Located in the top navigation bar
+    
+    If the sections drawer is open, it automatically closes when you download.
+  </Tab>
+</Tabs>
+
+## Download Process
+
+Here's what happens when you click the download button (from `Nav.js:29-39`):
+
+```javascript
+const downloadMarkdownFile = () => {
+  const a = document.createElement('a')
+  const blob = new Blob([markdown])
+  a.href = URL.createObjectURL(blob)
+  a.download = 'README.md'
+  a.click()
+  setShowModal(true)
+}
+```
+
+<Steps>
+  <Step title="Generate Markdown">
+    All selected sections are combined in order into a single markdown string
+  </Step>
+  <Step title="Create Blob">
+    The markdown text is converted to a Blob object
+  </Step>
+  <Step title="Trigger Download">
+    A temporary download link is created and automatically clicked
+  </Step>
+  <Step title="Show Confirmation">
+    The success modal appears with a celebration message
+  </Step>
+</Steps>
+
+## Downloaded File Format
+
+The downloaded file has specific characteristics:
+
+### File Details
+
+| Property | Value |
+|----------|-------|
+| **Filename** | `README.md` |
+| **Format** | Plain text markdown |
+| **Encoding** | UTF-8 |
+| **Line endings** | System default |
+| **Extension** | `.md` |
+
+### File Contents
+
+The downloaded README contains:
+- All selected sections in their current order
+- All your custom edits and modifications
+- Raw markdown text (no HTML or metadata)
+- Proper markdown formatting with headers, code blocks, lists, etc.
+
+<Accordion title="Example Downloaded Content">
+```markdown
+# My Awesome Project
+
+A brief description of what this project does and who it's for
+
+## Features
+
+- Light/dark mode toggle
+- Live previews
+- Fullscreen mode
+- Cross platform
+
+## Installation
+
+Install my-project with npm
+
+\`\`\`bash
+  npm install my-project
+  cd my-project
+\`\`\`
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+```
+</Accordion>
+
+<Note>
+The downloaded file includes only the sections you've added to your README. Sections from the library that you haven't added are not included.
+</Note>
+
+## Success Modal
+
+After downloading, a confirmation modal appears with helpful information.
+
+### Modal Contents
+
+The success modal (implemented in `DownloadModal.js`) includes:
+
+<CardGroup cols={3}>
+  <Card title="Celebration" icon="party-horn">
+    A party emoji (🎉) celebrates your completion
+  </Card>
+  <Card title="Confirmation Message" icon="check">
+    "Your Readme has been generated"
+  </Card>
+  <Card title="Feedback Options" icon="coffee">
+    Links to support the creator via Twitter or Buy Me a Coffee
+  </Card>
+</CardGroup>
+
+### Modal Features
+
+```markdown
+## Modal Message
+
+Your Readme has been generated
+
+Reach out to me on [Twitter](https://x.com/koushik_romel) if you have any feedback or suggestions!
+
+If you found this useful, consider buying me a coffee!
+```
+
+The modal also includes:
+- A **Buy Me a Coffee** button linking to the creator's page
+- A **GitHub Sponsors** button for ongoing support
+- Background overlay that closes the modal when clicked
+
+<Tip>
+The modal is dismissable - click anywhere outside the modal box or refresh the page to close it and continue editing.
+</Tip>
+
+## Using Your Downloaded README
+
+After downloading, you can use your README file in several ways:
+
+### Add to Your Git Repository
+
+<Steps>
+  <Step title="Locate Downloaded File">
+    Find `README.md` in your Downloads folder
+  </Step>
+  <Step title="Move to Project Root">
+    Copy or move the file to your project's root directory
+    ```bash
+    mv ~/Downloads/README.md /path/to/your/project/
+    ```
+  </Step>
+  <Step title="Commit to Git">
+    Add and commit the README to your repository
+    ```bash
+    git add README.md
+    git commit -m "Add README documentation"
+    git push
+    ```
+  </Step>
+  <Step title="View on GitHub">
+    Your README automatically appears on your GitHub repository homepage
+  </Step>
+</Steps>
+
+### Use for GitHub Profile
+
+For GitHub profile READMEs (using the github-profile sections):
+
+<Steps>
+  <Step title="Create Special Repository">
+    Create a repository with the same name as your GitHub username
+  </Step>
+  <Step title="Add README">
+    Place the downloaded `README.md` in the repository root
+  </Step>
+  <Step title="Commit and Push">
+    Commit the file and push to GitHub
+  </Step>
+  <Step title="See Profile">
+    Visit your GitHub profile to see your README displayed
+  </Step>
+</Steps>
+
+### Edit Externally
+
+You can also edit the downloaded README in your preferred editor:
+
+<CardGroup cols={2}>
+  <Card title="VS Code" icon="code">
+    Open with VS Code for syntax highlighting and markdown preview
+  </Card>
+  <Card title="Text Editor" icon="file-lines">
+    Use any plain text editor (Notepad, TextEdit, vim, etc.)
+  </Card>
+  <Card title="IDE" icon="window-maximize">
+    Open in your IDE alongside your project code
+  </Card>
+  <Card title="Online Editors" icon="globe">
+    Use GitHub's web editor or other online markdown editors
+  </Card>
+</CardGroup>
+
+## Alternative Export Methods
+
+While Readme.so focuses on downloading, you have other options for exporting your content:
+
+### Copy from Raw Preview
+
+<Steps>
+  <Step title="Switch to Raw Mode">
+    Click the **Raw** tab in the Preview column
+  </Step>
+  <Step title="Select All Text">
+    Use `Ctrl+A` (or `Cmd+A` on Mac) to select all markdown
+  </Step>
+  <Step title="Copy to Clipboard">
+    Press `Ctrl+C` (or `Cmd+C`) to copy
+  </Step>
+  <Step title="Paste Anywhere">
+    Paste into any editor or application
+  </Step>
+</Steps>
+
+This is useful when you want to:
+- Paste directly into GitHub's web editor
+- Add to a larger document
+- Share via email or chat
+- Import into another tool
+
+### Share with AI Tools
+
+Readme.so includes a "Share to LLM" feature for AI-assisted editing:
+
+<Note>
+The ShareToLLM component (from `ShareToLLM.js`) appears in the Preview column header and allows you to share your markdown with AI language models for suggestions and improvements.
+</Note>
+
+## Download Best Practices
+
+### Before Downloading
+
+<Checklist>
+  - [ ] Review all sections in the Preview column
+  - [ ] Check for placeholder text that needs customization
+  - [ ] Verify links are correct and working
+  - [ ] Ensure code examples are accurate
+  - [ ] Proofread for typos and formatting issues
+  - [ ] Test that badges display correctly
+  - [ ] Confirm images load properly
+</Checklist>
+
+### After Downloading
+
+<Checklist>
+  - [ ] Open the file to verify it downloaded correctly
+  - [ ] Check that all sections are included
+  - [ ] Verify formatting looks correct in your text editor
+  - [ ] Test rendering on GitHub (create a branch if needed)
+  - [ ] Keep the Readme.so tab open if you need to make changes
+  - [ ] Consider adding the file to version control
+</Checklist>
+
+## Re-downloading and Updates
+
+You can download your README as many times as needed:
+
+<Tabs>
+  <Tab title="Making Changes">
+    1. Edit your content in Readme.so
+    2. Click Download again to get the updated version
+    3. Replace the old README.md file with the new one
+    4. Commit the changes to Git
+    
+    <Note>
+    Each download creates a new file. Make sure to replace the old version in your project directory.
+    </Note>
+  </Tab>
+  <Tab title="Multiple Versions">
+    If you want to keep multiple versions:
+    1. Download your README
+    2. Rename it (e.g., `README-v1.md`, `README-backup.md`)
+    3. Make changes in Readme.so
+    4. Download again to get the new version
+    
+    This is useful for comparing versions or keeping backups.
+  </Tab>
+</Tabs>
+
+## Browser Compatibility
+
+The download feature works across all modern browsers:
+
+| Browser | Support | Notes |
+|---------|---------|-------|
+| Chrome | ✅ Full support | Downloads to default location |
+| Firefox | ✅ Full support | May prompt for location |
+| Safari | ✅ Full support | Downloads to default location |
+| Edge | ✅ Full support | Downloads to default location |
+| Mobile Safari | ✅ Full support | Downloads to Files app |
+| Chrome Mobile | ✅ Full support | Downloads to Downloads folder |
+
+<Warning>
+Some browsers may block automatic downloads if you have strict privacy settings enabled. Check your browser's download settings if the file doesn't download.
+</Warning>
+
+## Troubleshooting Downloads
+
+### Download Doesn't Start
+
+If clicking the download button doesn't work:
+
+1. **Check browser permissions**: Ensure automatic downloads are allowed
+2. **Disable popup blockers**: Some blockers interfere with downloads
+3. **Try a different browser**: Test if it's browser-specific
+4. **Check Downloads folder**: The file may have downloaded without notification
+
+### File Has Wrong Extension
+
+If your file downloads as `.txt` instead of `.md`:
+
+1. Rename the file manually to add `.md` extension
+2. Update your browser's file type associations
+3. Use "Save As" and specify `.md` extension
+
+### Content Is Missing
+
+If sections are missing from your downloaded file:
+
+1. Verify sections are in the "selected sections" list (not just available sections)
+2. Check that sections have content (not empty)
+3. Try downloading again
+4. Use the Raw preview to verify content before downloading
+
+## Continuous Workflow
+
+Readme.so supports an iterative workflow:
+
+<Steps>
+  <Step title="Create Initial README">
+    Add sections and create your first version
+  </Step>
+  <Step title="Download and Test">
+    Download the file and test it in your repository
+  </Step>
+  <Step title="Make Improvements">
+    Return to Readme.so to refine content (your work is saved in localStorage)
+  </Step>
+  <Step title="Re-download">
+    Download the updated version and replace the old file
+  </Step>
+  <Step title="Repeat as Needed">
+    Continue iterating until your README is perfect
+  </Step>
+</Steps>
+
+<Tip>
+Keep your Readme.so browser tab open while working on your project. You can easily switch back to make updates and re-download as your project evolves.
+</Tip>

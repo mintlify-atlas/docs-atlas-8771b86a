@@ -1,0 +1,186 @@
+---
+title: "Frequently Asked Questions"
+description: "Common questions and answers about using the Readme.so editor"
+---
+
+Find answers to the most commonly asked questions about using Readme.so to create and manage your README files.
+
+## General Questions
+
+<Accordion title="How do I save my work?">
+  Your work is automatically saved to your browser's local storage as you make changes. There's no need to manually save — every edit you make is preserved instantly.
+  
+  <Info>
+    Your README data is stored locally in your browser and is not sent to any server. This means your work persists between sessions, but it's specific to the browser and device you're using.
+  </Info>
+</Accordion>
+
+<Accordion title="Can I use the editor offline?">
+  Yes! Once you've loaded the editor in your browser, it works offline. The application is built as a Progressive Web App (PWA), so you can continue editing even without an internet connection. Your changes will be saved to local storage as usual.
+</Accordion>
+
+<Accordion title="Is my data stored on your servers?">
+  No. All your README content is stored locally in your browser's storage. The Readme.so editor does not send or store your data on any external servers. This ensures complete privacy and security for your work.
+  
+  <Warning>
+    Because data is stored locally, clearing your browser cache or using a different browser will result in losing your saved work. Make sure to download your README file regularly.
+  </Warning>
+</Accordion>
+
+<Accordion title="Can I access my work from different browsers or devices?">
+  Since data is stored in local browser storage, your work is not automatically synchronized across browsers or devices. To move your work between devices, download the README.md file and manually transfer it.
+</Accordion>
+
+## Editing and Customization
+
+<Accordion title="Can I create custom sections?">
+  Yes! In addition to the 30+ pre-built section templates, you can create custom sections:
+  
+  1. Click the **Custom Section** button (with a plus icon) in the sections list
+  2. Enter a title for your new section
+  3. Click **Add Section**
+  4. Edit the content just like any other section
+  
+  Custom sections give you complete flexibility to add any content not covered by the default templates.
+</Accordion>
+
+<Accordion title="How do I reorder sections?">
+  Sections can be reordered using drag-and-drop:
+  
+  1. Click and hold on any section in the editor column
+  2. Drag it to your desired position
+  3. Release to drop it in place
+  
+  The preview updates in real-time as you rearrange sections.
+</Accordion>
+
+<Accordion title="Can I remove a section after adding it?">
+  Yes. To remove a section, click the trash/delete icon next to the section in the editor column. The section will be removed from your README, but the template remains available in the sections library if you want to add it again later.
+</Accordion>
+
+<Accordion title="How do I edit section content?">
+  Click on any section in the middle editor column to open it for editing. You can write and format content using Markdown syntax. The Monaco editor provides syntax highlighting and formatting assistance as you type.
+</Accordion>
+
+## Languages and Localization
+
+<Accordion title="How do I change the interface language?">
+  To change the language:
+  
+  1. Look for the language dropdown in the navigation bar (typically shows a flag or language code)
+  2. Click it to open the language selector
+  3. Choose from available languages: English, Chinese (简体中文), Portuguese (Português), or Turkish (Türkçe)
+  
+  The interface will update immediately to display in your selected language.
+  
+  <Note>
+    Language selection only affects the editor interface and section template names. The content you write in your README remains in whatever language you choose to write it in.
+  </Note>
+</Accordion>
+
+<Accordion title="Are section templates translated?">
+  The section template names and placeholder text are localized into supported languages. When you switch the interface language, the templates update to show example content in that language, helping you understand what each section is for.
+</Accordion>
+
+## Exporting and Using READMEs
+
+<Accordion title="How do I download my README?">
+  Click the download button in the navigation bar at the top of the page. Your README will be downloaded as a `README.md` file that you can immediately add to your project repository.
+  
+  ```bash
+  # Move the downloaded file to your project
+  mv ~/Downloads/README.md /path/to/your/project/
+  
+  # Commit to Git
+  git add README.md
+  git commit -m "Add README documentation"
+  git push
+  ```
+</Accordion>
+
+<Accordion title="Can I edit the downloaded README file later?">
+  Yes! The downloaded file is a standard Markdown file. You can:
+  
+  - Edit it manually in any text editor
+  - Reopen the editor, copy and paste the content back in
+  - Continue editing the content stored in your browser if you haven't cleared it
+  
+  However, there's no "import" feature, so if you've made changes to the downloaded file and want to continue editing in the browser, you'll need to manually copy the content back.
+</Accordion>
+
+<Accordion title="What Markdown features are supported?">
+  The editor supports standard Markdown and GitHub Flavored Markdown (GFM), including:
+  
+  - Headers (`#`, `##`, `###`, etc.)
+  - **Bold** and *italic* text
+  - Code blocks with syntax highlighting
+  - Links and images
+  - Lists (ordered and unordered)
+  - Tables
+  - Blockquotes
+  - Task lists
+  - Badges and shields
+  
+  The preview renders your Markdown exactly as it will appear on GitHub.
+</Accordion>
+
+## Technical Issues
+
+<Accordion title="Why isn't my content saving?">
+  If your content isn't persisting between sessions:
+  
+  1. Check that your browser allows local storage
+  2. Ensure you're not in private/incognito mode (local storage is cleared when you close these windows)
+  3. Check that you haven't disabled storage for the site in browser settings
+  4. Try refreshing the page and checking if your content reappears
+  
+  <Warning>
+    Browser extensions that clear cookies or storage can interfere with auto-save. Make sure to whitelist the editor site if you use such extensions.
+  </Warning>
+</Accordion>
+
+<Accordion title="The preview isn't updating. What should I do?">
+  If the preview column isn't showing your latest changes:
+  
+  1. Try refreshing the browser page
+  2. Check if there are any browser console errors (press F12)
+  3. Clear your browser cache and reload
+  4. Try using a different browser to see if the issue persists
+  
+  If the problem continues, please report it on the [GitHub issues page](https://github.com/koushikromel/readme-so-community/issues).
+</Accordion>
+
+<Accordion title="Can I use this on mobile devices?">
+  While the editor is accessible on mobile browsers, it's optimized for desktop use. The three-column layout and drag-and-drop functionality work best on larger screens. For the best experience, we recommend using a tablet or desktop computer.
+</Accordion>
+
+## Contributing and Support
+
+<Accordion title="How can I report a bug or request a feature?">
+  Readme.so is open-source and community-maintained. To report bugs or request features:
+  
+  1. Visit the [GitHub repository](https://github.com/koushikromel/readme-so-community)
+  2. Check if your issue already exists in the Issues tab
+  3. If not, create a new issue with a detailed description
+  
+  Pull requests are welcome! See the [Contributing Guide](/developers/contributing) for more information.
+</Accordion>
+
+<Accordion title="Who maintains this project?">
+  This is a community-maintained fork of the original readme.so by Katherine Oelsner. The current maintainer is [Koushik Romel](https://github.com/koushikromel). The project accepts contributions from the community.
+  
+  For more details, see [Introduction](/introduction).
+</Accordion>
+
+<Accordion title="Is Readme.so really free?">
+  Yes! Readme.so is completely free and open-source under the MIT License. There are no premium tiers, paid features, or hidden costs. You can use it for personal or commercial projects without any restrictions.
+</Accordion>
+
+## Still Have Questions?
+
+If you didn't find an answer to your question here, you can:
+
+- Check the [User Guide](/guide/editor-interface) for detailed documentation
+- Browse the [GitHub Discussions](https://github.com/koushikromel/readme-so-community/discussions)
+- Open an issue on [GitHub](https://github.com/koushikromel/readme-so-community/issues)
+- Reach out to the maintainer on [Twitter](https://x.com/koushik_romel)

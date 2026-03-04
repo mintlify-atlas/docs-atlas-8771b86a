@@ -1,0 +1,180 @@
+---
+title: Editor Interface
+description: Learn how to navigate and use the three-column layout, drag-and-drop sections, and Monaco editor in Readme.so
+---
+
+Readme.so features an intuitive three-column interface designed to streamline your README creation workflow. This page explains each component and how to use them effectively.
+
+## Three-Column Layout
+
+The editor is organized into three main columns, each serving a distinct purpose:
+
+<CardGroup cols={3}>
+  <Card title="Sections Column" icon="sidebar">
+    Browse and manage all available README sections
+  </Card>
+  <Card title="Editor Column" icon="code">
+    Edit your selected section's markdown content
+  </Card>
+  <Card title="Preview Column" icon="eye">
+    See your README rendered in real-time
+  </Card>
+</CardGroup>
+
+### Sections Column
+
+The left column displays all available README sections organized alphabetically. From here, you can:
+
+- **Add sections** by clicking any available section template
+- **Reorder sections** using drag-and-drop
+- **Search sections** using the search filter (implemented in `SectionFilter.js:1`)
+- **Create custom sections** with the "Add Custom Section" button
+- **Reset all sections** using the reset button in the header
+
+<Note>
+The sections you select are automatically saved to your browser's local storage, so your work persists across sessions.
+</Note>
+
+### Editor Column
+
+The middle column provides a powerful editing experience powered by the Monaco Editor (the same editor that powers VS Code):
+
+<Tabs>
+  <Tab title="Desktop">
+    On desktop, you get the full Monaco Editor experience with:
+    - **Syntax highlighting** for markdown
+    - **Dark theme** by default (`vs-dark` theme in `EditorColumn.js:64`)
+    - **Word wrap** enabled for better readability
+    - **No minimap** for a cleaner interface
+    - **No line numbers** to maximize writing space
+  </Tab>
+  <Tab title="Mobile">
+    On mobile devices, the editor switches to a native textarea for better touch support:
+    - Touch-optimized input
+    - Full-screen editing mode
+    - Responsive design that adapts to your device
+  </Tab>
+</Tabs>
+
+<Warning>
+If you don't select a section, the editor displays a message: "Select a section on the left to edit." You must select at least one section to begin editing.
+</Warning>
+
+### Preview Column
+
+The right column shows a live preview of your README with two view modes:
+
+<AccordionGroup>
+  <Accordion title="Preview Mode">
+    Renders your markdown content exactly as it will appear on GitHub, with support for:
+    - GitHub Flavored Markdown (using `remark-gfm` plugin)
+    - Tables, task lists, and strikethrough text
+    - Images and badges
+    - Code blocks with syntax highlighting
+    - All links open in a new tab automatically
+  </Accordion>
+  <Accordion title="Raw Mode">
+    Shows the raw markdown source code, useful for:
+    - Copying markdown to paste elsewhere
+    - Verifying exact formatting
+    - Troubleshooting rendering issues
+  </Accordion>
+</AccordionGroup>
+
+## Drag-and-Drop Functionality
+
+Readme.so uses the `@dnd-kit` library to provide smooth drag-and-drop section reordering.
+
+### How to Reorder Sections
+
+1. Click and hold any selected section in the Sections column
+2. Drag it up or down to your desired position
+3. Release to drop it in place
+
+The drag-and-drop system includes:
+- **Vertical axis restriction** - sections can only move up/down (implemented with `restrictToVerticalAxis` modifier in `SectionsColumn.js:10`)
+- **Touch support** - works on mobile devices with touch sensors
+- **Keyboard support** - use keyboard shortcuts for accessibility
+- **Visual feedback** - clear indication of where the section will be placed
+
+<Note>
+Your section order is automatically saved as you reorder them. The changes persist in your browser's local storage.
+</Note>
+
+## Monaco Editor Features
+
+The Monaco Editor provides advanced editing capabilities available on desktop:
+
+### Key Features
+
+| Feature | Description |
+|---------|-------------|
+| Auto-indentation | Maintains consistent indentation as you type |
+| Markdown syntax | Highlights markdown syntax for better readability |
+| Find and replace | Use `Ctrl+F` (or `Cmd+F` on Mac) to search within the editor |
+| Multi-cursor editing | Hold `Alt` and click to add multiple cursors |
+| Line manipulation | Use `Alt+Up/Down` to move lines up or down |
+
+### Editor Configuration
+
+The Monaco Editor is configured with these options (from `EditorColumn.js:87-92`):
+
+```javascript
+options={{
+  minimap: {
+    enabled: false,
+  },
+  lineNumbers: false,
+  wordWrap: true,
+}}
+```
+
+This configuration prioritizes a clean, distraction-free writing environment.
+
+## Mobile Experience
+
+On mobile devices, the interface adapts to provide an optimal touch experience:
+
+### Tab Navigation
+
+Instead of showing all three columns simultaneously, mobile users navigate between tabs:
+
+<Steps>
+  <Step title="Editor Tab">
+    Focus on writing your content with a full-screen textarea
+  </Step>
+  <Step title="Preview Tab">
+    Review how your README will look
+  </Step>
+  <Step title="Raw Tab">
+    View the raw markdown source
+  </Step>
+</Steps>
+
+The active tab is managed by the `Tabs` component (implemented in `Tabs.js`) and automatically defaults to the Editor tab on mobile devices.
+
+## Responsive Design
+
+The interface automatically adjusts based on your screen size:
+
+- **Desktop (md and above)**: All three columns visible simultaneously
+- **Mobile**: Tab-based navigation with full-screen views
+- **Breakpoint**: The `md` breakpoint (typically 768px) determines the layout switch
+
+This responsive behavior is implemented using Tailwind CSS classes throughout the components, particularly in `EditPreviewContainer.js:42-101`.
+
+## Auto-Save Functionality
+
+Every edit you make is automatically saved to your browser's local storage through the `useLocalStorage` hook:
+
+<Check>
+Your work is continuously backed up as you type. If you accidentally close your browser or navigate away, your progress will be restored when you return.
+</Check>
+
+The auto-save system stores:
+- All section content and edits
+- Selected sections list
+- Section order
+- Currently focused section
+
+You can manually reset all sections using the reset button if you want to start fresh.

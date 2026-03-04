@@ -1,0 +1,234 @@
+---
+title: "Changelog"
+description: "Recent updates and improvements to Readme.so Community Edition"
+---
+
+Track the latest features, improvements, and bug fixes in Readme.so. This is a community-maintained fork that continues active development.
+
+<Note>
+  This project is a community-maintained continuation of the original [readme.so](https://github.com/octokatherine/readme.so) by Katherine Oelsner. The original repository appears inactive, and this version is independently maintained by [Koushik Romel](https://github.com/koushikromel) and the community.
+</Note>
+
+## February 2025
+
+### Documentation and Contributing Updates
+
+**February 24, 2025**
+
+- Updated contributing guide with clearer instructions for new contributors
+- Improved README with better onboarding documentation
+- Added more detailed project setup steps
+
+### Bug Fixes
+
+**February 23, 2025**
+
+- Reverted layout overflow fix that caused display issues on the home page
+- Identified alternative solution for overflow handling
+
+**February 22, 2025**
+
+- Fixed layout overflow issue that affected content display on the home page
+
+## February 2025
+
+### New Features
+
+**February 18, 2025**
+
+<Accordion title="Vercel Analytics Integration">
+  Added Vercel Analytics to track page views and usage patterns. This helps understand how developers use the editor and identify areas for improvement.
+  
+  - No personal data is collected
+  - Only aggregated usage metrics
+  - Helps prioritize feature development
+</Accordion>
+
+**February 17, 2025**
+
+<Accordion title="Share to LLM Feature">
+  New feature allowing users to share their README content with Large Language Models (LLMs) for assistance and suggestions.
+  
+  - Quickly export content for use with ChatGPT, Claude, or other AI tools
+  - Streamlines the workflow for getting AI assistance with documentation
+  - Accessible via new share button in the interface
+</Accordion>
+
+### Dependency Updates
+
+**February 15-16, 2025**
+
+<Accordion title="Headless UI Component Migration">
+  Updated Headless UI components to align with the latest API:
+  
+  - Modernized component imports and usage patterns
+  - Improved accessibility and keyboard navigation
+  - Better TypeScript support
+  - Maintained backward compatibility with existing modals and dropdowns
+</Accordion>
+
+**February 15, 2025**
+
+<Accordion title="Style and Hydration Improvements">
+  - Removed `overflow-hidden` class from main content container for better scroll behavior
+  - Fixed hydration mismatch issues with dnd-kit drag-and-drop functionality
+  - Relocated mounted check in SectionsColumn to ensure consistent React hook calls
+  - Resolved Next.js Link legacy usage warnings
+</Accordion>
+
+### Project Infrastructure
+
+**February 14, 2025**
+
+- Added project status section to README clarifying community fork relationship
+- Updated maintainer details and contact information
+- Renamed project to "readme-so-community" for clarity
+- Updated author attribution across application, documentation, and configuration files
+
+**February 13, 2025**
+
+- Updated `.gitignore` to better manage documentation build artifacts
+- Removed CHANGELOG.md from repository (now tracked in docs)
+
+## January 2025
+
+### Code Quality and Developer Experience
+
+**January 30, 2025**
+
+<Accordion title="ESLint Integration">
+  Added ESLint with Next.js configuration:
+  
+  - Automatic code quality checks
+  - Consistent code style enforcement
+  - Integration with Next.js best practices
+  - Pre-commit hooks for linting
+</Accordion>
+
+### Major Dependency Upgrades
+
+**January 27-29, 2025**
+
+<Accordion title="Ecosystem Modernization">
+  Comprehensive upgrade of core dependencies:
+  
+  **Markdown and Editor**
+  - Updated react-markdown for better rendering performance
+  - Enhanced syntax highlighting support
+  
+  **Drag and Drop**
+  - Upgraded dnd-kit to latest stable version
+  - Improved touch device support
+  - Better accessibility features
+  
+  **Internationalization**
+  - Updated next-i18next with new translation features
+  - Fixed compatibility with React 19
+  
+  **UI/UX**
+  - Upgraded next-nprogress-bar for smoother loading indicators
+</Accordion>
+
+**January 26, 2025**
+
+<Accordion title="Tailwind CSS v3 Upgrade">
+  Migrated from Tailwind CSS v2 to v3:
+  
+  - New JIT (Just-In-Time) compiler for faster builds
+  - Improved color palette and utilities
+  - Better dark mode support
+  - Smaller production bundle sizes
+  - Enhanced typography and spacing utilities
+</Accordion>
+
+**January 25, 2025**
+
+<Accordion title="React 19 and Next.js 16 Migration">
+  Major framework upgrades:
+  
+  **React 19**
+  - Improved concurrent rendering
+  - Better error boundaries
+  - Enhanced performance optimizations
+  - New React compiler features
+  
+  **Next.js 16**
+  - Faster page transitions
+  - Improved server components support
+  - Better image optimization
+  - Enhanced middleware capabilities
+  - Improved TypeScript integration
+</Accordion>
+
+**January 24, 2025**
+
+- Upgraded Next.js from v11 to v12 as first step in modernization
+- Fixed compatibility issues with middleware and API routes
+
+## Version History Overview
+
+### v0.1.x - Community Fork Establishment
+
+The community fork was established in early 2025 to continue development and maintenance after the original repository became inactive.
+
+**Major Accomplishments:**
+- Upgraded entire tech stack to latest versions
+- Fixed critical bugs and hydration issues
+- Added new features based on community feedback
+- Established clear contribution guidelines
+- Improved documentation and onboarding
+
+### Previous Versions (Original Project)
+
+The original readme.so project by Katherine Oelsner provided the foundation for this editor:
+
+- Initial drag-and-drop interface
+- 30+ section templates
+- Multi-language support
+- Live preview functionality
+- Local storage persistence
+
+<Info>
+  For the complete history of the original project, see the [original repository](https://github.com/octokatherine/readme.so).
+</Info>
+
+## Upcoming Features
+
+We're actively working on new features based on community feedback. Check the [GitHub Issues](https://github.com/koushikromel/readme-so-community/issues) for what's coming next, or suggest your own ideas!
+
+**Under Consideration:**
+- Import existing README.md files
+- More section templates (GitHub Actions, Docker, Kubernetes)
+- Export to different formats (PDF, HTML)
+- Collaborative editing features
+- Custom template saving
+- README analytics and suggestions
+
+## Contributing to Updates
+
+This project is community-driven, and we welcome contributions of all kinds:
+
+- **Bug Reports**: Found an issue? [Report it](https://github.com/koushikromel/readme-so-community/issues)
+- **Feature Requests**: Have an idea? [Share it](https://github.com/koushikromel/readme-so-community/discussions)
+- **Code Contributions**: See our [Contributing Guide](/developers/contributing)
+- **Documentation**: Help improve these docs!
+
+Every contribution helps make Readme.so better for everyone.
+
+## Release Notes Format
+
+Release notes follow this format to help you quickly understand changes:
+
+- **New Features**: Major new functionality added to the editor
+- **Improvements**: Enhancements to existing features
+- **Bug Fixes**: Issues that have been resolved
+- **Dependencies**: Library and framework updates
+- **Breaking Changes**: Changes that may require action from users
+
+## Feedback
+
+Have thoughts on recent updates or suggestions for future releases? We'd love to hear from you:
+
+- [Open a discussion on GitHub](https://github.com/koushikromel/readme-so-community/discussions)
+- [Follow the maintainer on Twitter](https://x.com/koushik_romel)
+- [Check the roadmap](https://github.com/koushikromel/readme-so-community/projects)

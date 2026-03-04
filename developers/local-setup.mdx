@@ -1,0 +1,187 @@
+---
+title: 'Local Development Setup'
+description: 'Get Readme.so running locally on your machine for development'
+---
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v14 or higher)
+- **npm** (comes with Node.js)
+- **Git** for version control
+
+## Getting Started
+
+Follow these steps to set up Readme.so locally:
+
+<Steps>
+  <Step title="Fork and Clone the Repository">
+    First, fork the repository on GitHub, then clone it to your local machine:
+    
+    ```bash
+    git clone https://github.com/your-username/readme-so-community.git
+    cd readme-so-community
+    ```
+  </Step>
+
+  <Step title="Install Dependencies">
+    Install all project dependencies using npm:
+    
+    ```bash
+    npm install
+    ```
+    
+    This will install all dependencies listed in `package.json`, including:
+    - Next.js 16
+    - React 19
+    - Tailwind CSS 3
+    - dnd-kit for drag and drop
+    - Monaco Editor for code editing
+    - i18next for internationalization
+  </Step>
+
+  <Step title="Start the Development Server">
+    Run the development server:
+    
+    ```bash
+    npm run dev
+    ```
+    
+    The application will be available at [http://localhost:3000](http://localhost:3000)
+  </Step>
+
+  <Step title="Verify the Setup">
+    Open your browser and navigate to `localhost:3000`. You should see the Readme.so editor interface.
+    
+    Try the following to ensure everything works:
+    - Add sections to your readme
+    - Edit section content
+    - Drag and drop sections to reorder them
+    - Preview your readme in real-time
+  </Step>
+</Steps>
+
+## Available Scripts
+
+The project includes several npm scripts for development:
+
+<CodeGroup>
+```bash Development
+npm run dev
+```
+
+```bash Production Build
+npm run build
+```
+
+```bash Start Production Server
+npm start
+```
+
+```bash Run Tests
+npm test
+```
+
+```bash Watch Tests
+npm test:watch
+```
+
+```bash Lint Code
+npm run lint
+```
+
+```bash Format Code
+npm run format
+```
+</CodeGroup>
+
+### Script Details
+
+- **`npm run dev`** - Starts the Next.js development server with hot reload
+- **`npm run build`** - Creates an optimized production build
+- **`npm start`** - Starts the production server (run `npm run build` first)
+- **`npm test`** - Runs Jest tests once
+- **`npm test:watch`** - Runs Jest in watch mode for continuous testing
+- **`npm run lint`** - Runs ESLint and Prettier to check code quality
+- **`npm run format`** - Formats code with Prettier and stages changes
+
+## Environment Setup
+
+Readme.so works out of the box without additional environment variables. However, you may want to configure certain aspects:
+
+### Local Storage
+
+The application uses browser localStorage to:
+- Persist user's readme sections
+- Store editor preferences
+- Save dark mode settings
+- Cache section templates
+
+<Warning>
+  Clearing your browser's localStorage will reset all editor data. There is no server-side persistence.
+</Warning>
+
+### PWA Configuration
+
+The project includes PWA support via `next-pwa`. To test PWA features:
+
+1. Build the production version: `npm run build`
+2. Start the production server: `npm start`
+3. Access the app in your browser
+4. Look for the "Install" prompt or check browser developer tools
+
+## Troubleshooting
+
+### Port Already in Use
+
+If port 3000 is already in use:
+
+```bash
+# Use a different port
+PORT=3001 npm run dev
+```
+
+### Module Not Found Errors
+
+If you encounter missing module errors:
+
+```bash
+# Clean install dependencies
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### Build Failures
+
+If the build fails:
+
+1. Check that you're using Node.js v14 or higher: `node --version`
+2. Ensure all dependencies are installed: `npm install`
+3. Clear the Next.js cache: `rm -rf .next`
+4. Try building again: `npm run build`
+
+### Husky Git Hooks Issues
+
+The project uses Husky for git hooks. If you encounter issues:
+
+```bash
+# Reinstall husky
+npm run postinstall
+```
+
+## Next Steps
+
+Now that your local environment is set up:
+
+<CardGroup cols={2}>
+  <Card title="Architecture" icon="sitemap" href="/developers/architecture">
+    Understand the project structure and data flow
+  </Card>
+  <Card title="Contributing" icon="code-pull-request" href="/developers/contributing">
+    Learn how to contribute to the project
+  </Card>
+  <Card title="Testing" icon="flask" href="/developers/testing">
+    Write and run tests for your changes
+  </Card>
+</CardGroup>

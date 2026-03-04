@@ -1,0 +1,403 @@
+---
+title: 'Contributing Guide'
+description: 'Learn how to contribute to Readme.so - from reporting bugs to submitting pull requests'
+---
+
+## Welcome Contributors
+
+Thanks for your interest in contributing to Readme.so! This community-maintained project welcomes all types of contributions including new features, bug fixes, documentation improvements, and translations.
+
+<Info>
+  Readme.so is a community fork of the original [readme.so](https://github.com/octokatherine/readme.so) by Katherine Oelsner, now maintained by [Koushik Romel](https://github.com/koushikromel).
+</Info>
+
+## Ways to Contribute
+
+### Reporting Bugs
+
+Found a bug? Help us fix it:
+
+<Steps>
+  <Step title="Check Existing Issues">
+    Search the [Issues page](https://github.com/koushikromel/readme-so-community/issues) to see if the bug has already been reported.
+  </Step>
+
+  <Step title="Create a New Issue">
+    If it hasn't been reported, create a [new issue](https://github.com/koushikromel/readme-so-community/issues/new) with:
+    
+    - **Clear title** - Summarize the problem
+    - **Steps to reproduce** - Exact steps to trigger the bug
+    - **Expected behavior** - What should happen
+    - **Actual behavior** - What actually happens
+    - **Screenshots** - If applicable
+    - **Environment** - Browser, OS, device type
+  </Step>
+</Steps>
+
+### Suggesting Features
+
+Have an idea for a new feature?
+
+<Steps>
+  <Step title="Open a Feature Request">
+    Create a [feature request issue](https://github.com/koushikromel/readme-so-community/issues/new?template=feature_request.md) to discuss your idea.
+  </Step>
+
+  <Step title="Wait for Feedback">
+    Discuss with maintainers to ensure your effort aligns with the project roadmap before starting work.
+  </Step>
+</Steps>
+
+<Tip>
+  Always discuss major features before implementing them to avoid wasted effort on changes that might not be accepted.
+</Tip>
+
+### Improving Documentation
+
+Documentation improvements are always welcome:
+- Fix typos or unclear explanations
+- Add missing documentation
+- Improve code examples
+- Translate to new languages
+
+## Development Workflow
+
+### 1. Fork and Clone
+
+<CodeGroup>
+```bash Fork the Repository
+# Visit https://github.com/koushikromel/readme-so-community/fork
+# Click "Create fork"
+```
+
+```bash Clone Your Fork
+git clone https://github.com/your-username/readme-so-community.git
+cd readme-so-community
+```
+</CodeGroup>
+
+### 2. Set Up Development Environment
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+See the [Local Setup guide](/developers/local-setup) for detailed instructions.
+
+### 3. Create a Feature Branch
+
+<Warning>
+  Always create a new branch for your changes. Never commit directly to `main`.
+</Warning>
+
+```bash
+# Create and switch to a new branch
+git checkout -b feature/your-feature-name
+
+# Examples:
+git checkout -b feature/add-badges-section
+git checkout -b fix/drag-drop-mobile
+git checkout -b docs/update-contributing
+```
+
+**Branch Naming Conventions:**
+- `feature/` - New features
+- `fix/` - Bug fixes
+- `docs/` - Documentation updates
+- `refactor/` - Code refactoring
+- `test/` - Test additions or fixes
+
+### 4. Make Your Changes
+
+Follow these guidelines when making changes:
+
+#### Code Style
+
+The project enforces code style through ESLint and Prettier:
+
+```bash
+# Check for issues
+npm run lint
+
+# Auto-fix formatting issues
+npm run format
+```
+
+<Tip>
+  Configure your editor to run Prettier on save to avoid formatting issues.
+</Tip>
+
+**Key Style Points:**
+- Use functional components with hooks
+- Prefer `const` over `let`
+- Use meaningful variable names
+- Keep components small and focused
+- Add comments for complex logic
+
+#### Component Guidelines
+
+When creating or modifying components:
+
+```javascript
+// Good: Descriptive name, clear purpose
+export const SectionFilter = ({ searchFilter, setSearchFilter }) => {
+  // Component logic
+}
+
+// Bad: Vague name, too many responsibilities
+export const Thing = (props) => {
+  // Too much logic
+}
+```
+
+**Best Practices:**
+- Keep components under 300 lines
+- Extract reusable logic into hooks
+- Use prop destructuring
+- Include PropTypes or TypeScript types (future)
+- Test user-facing components
+
+#### State Management
+
+Follow the existing patterns:
+
+```javascript
+// Lift state to common ancestor
+const [selectedSections, setSelectedSections] = useState([])
+
+// Pass down via props
+<SectionsColumn 
+  selectedSections={selectedSections}
+  setSelectedSections={setSelectedSections}
+/>
+
+// Use localStorage for persistence
+useEffect(() => {
+  localStorage.setItem('key', JSON.stringify(value))
+}, [value])
+```
+
+### 5. Test Your Changes
+
+<Warning>
+  All changes must pass existing tests. New features should include tests.
+</Warning>
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test:watch
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+**Manual Testing Checklist:**
+- ✅ Editor loads without errors
+- ✅ Can add/remove sections
+- ✅ Can edit section content
+- ✅ Can drag and drop sections
+- ✅ Preview updates in real-time
+- ✅ Works on mobile devices
+- ✅ Dark mode works correctly
+- ✅ No console errors or warnings
+
+### 6. Build and Verify
+
+Before submitting, ensure the project builds successfully:
+
+```bash
+# Create production build
+npm run build
+
+# Test production build locally
+npm start
+```
+
+<Tip>
+  Production builds may reveal issues not present in development mode.
+</Tip>
+
+### 7. Commit Your Changes
+
+Write clear, descriptive commit messages:
+
+<CodeGroup>
+```bash Good Commits
+git commit -m "Add badges section template"
+git commit -m "Fix drag and drop on mobile devices"
+git commit -m "Update contributing documentation"
+```
+
+```bash Bad Commits
+git commit -m "fix stuff"
+git commit -m "WIP"
+git commit -m "asdf"
+```
+</CodeGroup>
+
+**Commit Message Format:**
+```
+<type>: <short description>
+
+[optional body]
+[optional footer]
+```
+
+**Types:**
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation changes
+- `style` - Formatting, missing semicolons, etc.
+- `refactor` - Code restructuring
+- `test` - Adding tests
+- `chore` - Maintenance tasks
+
+### 8. Push to Your Fork
+
+```bash
+# Push your branch to your fork
+git push origin feature/your-feature-name
+```
+
+### 9. Open a Pull Request
+
+<Steps>
+  <Step title="Navigate to the Repository">
+    Go to the [main repository](https://github.com/koushikromel/readme-so-community) on GitHub.
+  </Step>
+
+  <Step title="Click 'New Pull Request'">
+    GitHub will detect your recently pushed branch and show a prompt to create a PR.
+  </Step>
+
+  <Step title="Fill Out PR Template">
+    Provide a clear title and description:
+    
+    **Title:** Brief summary of changes (e.g., "Add badges section template")
+    
+    **Description:**
+    - What changes were made
+    - Why the changes were necessary
+    - How to test the changes
+    - Screenshots (if UI changes)
+    - Related issue numbers
+  </Step>
+
+  <Step title="Submit and Wait for Review">
+    A maintainer will review your PR. Be responsive to feedback and requests for changes.
+  </Step>
+</Steps>
+
+## Pull Request Guidelines
+
+### PR Checklist
+
+Before submitting, ensure:
+
+- [ ] Code follows project style (passes `npm run lint`)
+- [ ] All tests pass (`npm test`)
+- [ ] Project builds successfully (`npm run build`)
+- [ ] Changes are well-documented in code comments
+- [ ] No console errors or warnings
+- [ ] Tested on both desktop and mobile
+- [ ] Tested in both light and dark modes
+- [ ] PR description clearly explains changes
+
+### Review Process
+
+<Steps>
+  <Step title="Automated Checks">
+    GitHub Actions will run automated tests and linting. All checks must pass.
+  </Step>
+
+  <Step title="Maintainer Review">
+    A maintainer will review your code, typically within a few days.
+  </Step>
+
+  <Step title="Address Feedback">
+    Make requested changes by pushing new commits to your branch.
+    
+    ```bash
+    # Make changes based on feedback
+    git add .
+    git commit -m "Address PR feedback"
+    git push
+    ```
+  </Step>
+
+  <Step title="Approval and Merge">
+    Once approved, a maintainer will merge your PR. Congratulations!
+  </Step>
+</Steps>
+
+<Info>
+  Be patient and respectful during the review process. Maintainers are volunteers reviewing contributions in their spare time.
+</Info>
+
+## Code of Conduct
+
+Please be respectful and considerate of others when contributing to this project. We strive to create a welcoming environment for everyone.
+
+**Expected Behavior:**
+- Be respectful of differing opinions and experiences
+- Accept constructive criticism gracefully
+- Focus on what's best for the community
+- Show empathy towards other contributors
+
+**Unacceptable Behavior:**
+- Trolling, insulting comments, or personal attacks
+- Public or private harassment
+- Publishing others' private information
+- Other unprofessional conduct
+
+## Getting Help
+
+Need help contributing?
+
+<CardGroup cols={2}>
+  <Card title="Join Discussions" icon="comments" href="https://github.com/koushikromel/readme-so-community/discussions">
+    Ask questions in GitHub Discussions
+  </Card>
+  <Card title="Contact Maintainer" icon="twitter" href="https://x.com/koushik_romel">
+    Reach out on Twitter/X
+  </Card>
+</CardGroup>
+
+## Recognition
+
+All contributors are recognized in:
+- GitHub's contributors graph
+- Release notes (for significant contributions)
+- The project's community
+
+<Tip>
+  Every contribution, no matter how small, is valuable and appreciated!
+</Tip>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Local Setup" icon="laptop-code" href="/developers/local-setup">
+    Set up your development environment
+  </Card>
+  <Card title="Architecture" icon="sitemap" href="/developers/architecture">
+    Understand the codebase structure
+  </Card>
+  <Card title="Testing" icon="flask" href="/developers/testing">
+    Learn how to write tests
+  </Card>
+  <Card title="View Issues" icon="github" href="https://github.com/koushikromel/readme-so-community/issues">
+    Find issues to work on
+  </Card>
+</CardGroup>
+
+---
+
+Thank you for contributing to Readme.so! Your efforts help make this tool better for everyone.

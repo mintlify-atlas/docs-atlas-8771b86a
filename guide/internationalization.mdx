@@ -1,0 +1,492 @@
+---
+title: Internationalization
+description: Readme.so supports multiple languages with section templates and UI translations
+---
+
+Readme.so is built with internationalization support, allowing users from around the world to create README files in their preferred language.
+
+## Supported Languages
+
+Readme.so currently supports multiple languages through its internationalization system powered by `next-i18next`.
+
+### Section Template Languages
+
+The following languages have complete section template libraries (defined in the `data/` directory):
+
+<CardGroup cols={2}>
+  <Card title="English" icon="globe">
+    **Code**: `en` / `en_EN`
+    
+    **File**: `section-templates-en_EN.js`
+    
+    **Status**: Primary language with all 33 section templates
+  </Card>
+  
+  <Card title="中文简体 (Chinese Simplified)" icon="language">
+    **Code**: `cn` / `cn_CN`
+    
+    **File**: `section-templates-cn_CN.js`
+    
+    **Status**: Full template library
+  </Card>
+  
+  <Card title="Português (Portuguese)" icon="flag">
+    **Code**: `pt` / `pt_BR`
+    
+    **File**: `section-templates-pt_BR.js`
+    
+    **Status**: Full template library (Brazilian Portuguese)
+  </Card>
+  
+  <Card title="Türkçe (Turkish)" icon="earth-asia">
+    **Code**: `tr` / `tr_TR`
+    
+    **File**: `section-templates-tr_TR.js`
+    
+    **Status**: Full template library
+  </Card>
+</CardGroup>
+
+### UI Translation Languages
+
+The user interface supports even more languages through the language dropdown (`LanguageDropDown.js:3-84`):
+
+<AccordionGroup>
+  <Accordion title="European Languages">
+    - **English** (`/en`)
+    - **Français** - French (`/fr`)
+    - **Español** - Spanish (`/es`)
+    - **Italiano** - Italian (`/it`)
+    - **Deutsch** - German (`/de`)
+    - **Nederlands** - Dutch (`/nl`)
+    - **Русский** - Russian (`/ru`)
+  </Accordion>
+  
+  <Accordion title="Asian Languages">
+    - **中文简体** - Chinese Simplified (`/cn`)
+    - **日本語** - Japanese (`/ja`)
+    - **한국어** - Korean (if supported)
+    - **हिंदी** - Hindi (`/hi`)
+    - **বাংলা** - Bengali (`/bn`)
+    - **తెలుగు** - Telugu (`/tl`)
+  </Accordion>
+  
+  <Accordion title="Other Languages">
+    - **العربية** - Arabic (`/ar`)
+    - **Türkçe** - Turkish (`/tr`)
+    - **Filipino** (`/fil`)
+    - **Bahasa Indonesia** - Indonesian (`/id`)
+    - **Swahili** (`/sw`)
+    - **O'zbekcha** - Uzbek (`/uz`)
+    - **Português** - Portuguese (`/pt`)
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+Some languages may have UI translations without complete section template libraries. The application will fall back to English templates when necessary.
+</Note>
+
+## Changing Language
+
+Users can change their language preference using the language selector in the navigation area.
+
+### Language Dropdown
+
+<Steps>
+  <Step title="Find Language Selector">
+    Look for the globe/language icon in the navigation area
+  </Step>
+  <Step title="Click to Open Dropdown">
+    Click the icon to reveal the language selection menu
+  </Step>
+  <Step title="Select Your Language">
+    Choose your preferred language from the dropdown list
+  </Step>
+  <Step title="Page Reloads">
+    The page automatically navigates to the selected language route (e.g., `/en`, `/cn`, `/pt`)
+  </Step>
+</Steps>
+
+### Language Routes
+
+Each language has its own route path:
+
+```
+https://readme.so/en    → English
+https://readme.so/cn    → Chinese (Simplified)
+https://readme.so/pt    → Portuguese
+https://readme.so/tr    → Turkish
+https://readme.so/es    → Spanish
+https://readme.so/fr    → French
+https://readme.so/ja    → Japanese
+...and more
+```
+
+<Tip>
+Bookmark your preferred language URL to always start in that language.
+</Tip>
+
+## How Internationalization Works
+
+Readme.so uses a multi-layer internationalization system combining section templates and UI translations.
+
+### Section Templates
+
+Section templates are organized by language in the data directory:
+
+```javascript
+// From data/index.js
+import { tr_TR } from './section-templates-tr_TR'
+import { en_EN } from './section-templates-en_EN'
+import { pt_BR } from './section-templates-pt_BR'
+import { cn_CN } from './section-templates-cn_CN'
+
+export default {
+  tr: tr_TR,
+  en: en_EN,
+  pt: pt_BR,
+  cn: cn_CN,
+}
+```
+
+Each template file contains:
+- All 33 section templates
+- Translated section names
+- Localized markdown content
+- Language-appropriate examples
+
+<Accordion title="Example: Chinese Section Template">
+```javascript
+// From section-templates-cn_CN.js
+{
+  slug: 'installation',
+  name: '安装',  // "Installation" in Chinese
+  markdown: `
+## 安装
+
+使用 npm 安装项目
+
+\`\`\`bash
+  npm install my-project
+  cd my-project
+\`\`\`
+  `,
+}
+```
+</Accordion>
+
+### UI Translations
+
+The user interface text (buttons, labels, messages) is translated using `next-i18next`:
+
+```javascript
+// Example from EditorColumn.js
+const { t } = useTranslation('editor')
+
+// Translation keys like:
+t('editor-select')           // "Select a section on the left to edit"
+t('editor-column-editor')    // "Editor"
+t('preview-column-preview')  // "Preview"
+```
+
+Translation files are typically stored in:
+- `public/locales/en/` - English translations
+- `public/locales/cn/` - Chinese translations
+- `public/locales/pt/` - Portuguese translations
+- `public/locales/tr/` - Turkish translations
+
+### Configuration
+
+The i18n system is configured in `next-i18next.config.js`:
+
+```javascript
+module.exports = {
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'cn', 'pt', 'tr', /* other locales */],
+  },
+}
+```
+
+## Section Content Localization
+
+When you switch languages, the section templates change to match:
+
+<Tabs>
+  <Tab title="English">
+    **Section Name**: "Installation"
+    
+    **Content**:
+    ```markdown
+    ## Installation
+    
+    Install my-project with npm
+    
+    \`\`\`bash
+      npm install my-project
+      cd my-project
+    \`\`\`
+    ```
+  </Tab>
+  
+  <Tab title="Portuguese">
+    **Section Name**: "Instalação"
+    
+    **Content**:
+    ```markdown
+    ## Instalação
+    
+    Instale my-project com npm
+    
+    \`\`\`bash
+      npm install my-project
+      cd my-project
+    \`\`\`
+    ```
+  </Tab>
+  
+  <Tab title="Turkish">
+    **Section Name**: "Kurulum"
+    
+    **Content**:
+    ```markdown
+    ## Kurulum
+    
+    my-project'i npm ile kurun
+    
+    \`\`\`bash
+      npm install my-project
+      cd my-project
+    \`\`\`
+    ```
+  </Tab>
+</Tabs>
+
+<Note>
+Switching languages affects:
+- Section template names
+- Pre-filled markdown content
+- UI labels and buttons
+- Help text and messages
+
+It does NOT affect:
+- Your custom edits to sections
+- Custom sections you've created
+- Your section selection and order
+</Note>
+
+## Mixing Languages
+
+You can create multilingual READMEs by editing the templates:
+
+### Creating a Bilingual README
+
+<Steps>
+  <Step title="Start in Your Primary Language">
+    Select your main language (e.g., English)
+  </Step>
+  <Step title="Add Sections">
+    Add the sections you need
+  </Step>
+  <Step title="Edit Content">
+    Add content in your primary language
+  </Step>
+  <Step title="Add Translations">
+    Edit sections to include translations below the primary content
+  </Step>
+</Steps>
+
+<Accordion title="Example: Bilingual Title Section">
+```markdown
+# My Awesome Project
+
+A tool for managing development workflows and team collaboration
+
+---
+
+# 我的很棒的项目
+
+用于管理开发工作流程和团队协作的工具
+
+---
+
+## Features / 功能特点
+
+- Easy setup / 简单设置
+- Fast performance / 快速性能
+- Cross-platform / 跨平台
+```
+</Accordion>
+
+## Contributing Translations
+
+Readme.so welcomes contributions for new language support.
+
+### Translation Components
+
+To add a new language, you need to provide:
+
+<Checklist>
+  - [ ] Section templates file (e.g., `section-templates-de_DE.js` for German)
+  - [ ] UI translation files in `public/locales/[locale]/`
+  - [ ] Language entry in `next-i18next.config.js`
+  - [ ] Language entry in `LanguageDropDown.js`
+  - [ ] Update `data/index.js` to export new templates
+</Checklist>
+
+### Section Template Structure
+
+Each language's section template file should follow this structure:
+
+```javascript
+export const [locale_CODE] = [
+  {
+    slug: 'section-slug',
+    name: 'Translated Section Name',
+    markdown: `
+# Translated Markdown Content
+
+Localized example text...
+    `,
+  },
+  // ... more sections
+]
+```
+
+<Warning>
+Keep the slug values consistent across languages. The slug should always be in English (e.g., `'installation'`, not `'instalação'`) to ensure proper section matching and storage.
+</Warning>
+
+### Translation Guidelines
+
+When translating section templates:
+
+1. **Keep Technical Terms**: Some terms like "npm", "git", "API" should remain in English
+2. **Localize Examples**: Use culturally relevant examples and placeholder text
+3. **Maintain Formatting**: Keep markdown structure identical to English version
+4. **Test Thoroughly**: Ensure all 33 sections are translated and working
+5. **Update UI Strings**: Translate all button labels, messages, and help text
+
+## Language-Specific Features
+
+Some sections adapt to language and cultural contexts:
+
+### Authors Section
+
+The Authors section includes locale-appropriate social media examples:
+
+<Tabs>
+  <Tab title="English">
+    ```markdown
+    ## Authors
+    
+    - [@katherine_peterson](https://www.github.com/katherine_peterson)
+    ```
+  </Tab>
+  <Tab title="Chinese">
+    ```markdown
+    ## 作者
+    
+    - [@zhang_wei](https://www.github.com/zhang_wei)
+    - [微博](https://weibo.com/username)
+    ```
+  </Tab>
+</Tabs>
+
+### Support Section
+
+Contact methods may vary by language and region:
+
+<Tabs>
+  <Tab title="English">
+    ```markdown
+    ## Support
+    
+    For support, email support@example.com or join our Slack channel.
+    ```
+  </Tab>
+  <Tab title="Other Languages">
+    Might reference region-specific platforms:
+    - WeChat for Chinese audiences
+    - Telegram for Russian audiences
+    - WhatsApp for Portuguese/Spanish audiences
+  </Tab>
+</Tabs>
+
+## Right-to-Left (RTL) Support
+
+For languages like Arabic that read right-to-left:
+
+<Note>
+Arabic (`/ar`) is included in the language dropdown. RTL layout support depends on the CSS implementation and may vary. The markdown content itself will render correctly on GitHub, which has built-in RTL support.
+</Note>
+
+## Reporting Translation Issues
+
+If you find translation errors or missing translations:
+
+<Steps>
+  <Step title="Check Current Translation">
+    Verify the issue in the current language
+  </Step>
+  <Step title="Visit Language Dropdown">
+    Click the language selector and find the "Report translation error" link at the bottom
+  </Step>
+  <Step title="Open GitHub Issue">
+    The link takes you to: `https://github.com/koushikromel/readme-so-community/issues/new`
+  </Step>
+  <Step title="Describe the Issue">
+    Provide:
+    - Language code
+    - Section or UI element affected
+    - Current text
+    - Suggested correction
+  </Step>
+</Steps>
+
+## Best Practices for Multilingual READMEs
+
+When creating READMEs for international audiences:
+
+<CardGroup cols={2}>
+  <Card title="Start with English" icon="language">
+    English is the most widely understood language in the developer community
+  </Card>
+  <Card title="Add Key Sections in Other Languages" icon="globe">
+    Translate at minimum: title, description, installation, and usage
+  </Card>
+  <Card title="Use Clear Section Dividers" icon="bars">
+    Separate language sections with horizontal rules (`---`)
+  </Card>
+  <Card title="Be Consistent" icon="check">
+    If you translate one section, translate all or clearly mark which are translated
+  </Card>
+</CardGroup>
+
+### Recommended Structure
+
+```markdown
+# Project Title (English)
+
+English description
+
+[English content...]
+
+---
+
+# Título del Proyecto (Español)
+
+Descripción en español
+
+[Spanish content...]
+
+---
+
+# 项目标题 (中文)
+
+中文描述
+
+[Chinese content...]
+```
+
+This approach ensures all users can find content in their language while maintaining a clear structure.
